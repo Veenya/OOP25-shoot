@@ -2,6 +2,9 @@ package it.unibo.shoot.model;
 
 //import java.awt.Window;
 import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
 import it.unibo.shoot.view.Window;
 
 public class Game extends Canvas implements Runnable {
@@ -48,7 +51,21 @@ public class Game extends Canvas implements Runnable {
 
     public void tick() {}
 
-    public void render() {}
+    public void render() {
+        BufferStrategy bs = this.getBufferStrategy();
+        if (bs == null) {
+            this.createBufferStrategy(3);
+            return;
+        }
+        Graphics g = bs.getDrawGraphics();
+        //
+
+        // la roba va qui
+
+        //
+        g.dispose();
+        bs.show();
+    }
 
     private void start() {
         isRunning = true;
