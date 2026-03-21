@@ -48,7 +48,7 @@ public class Game extends Canvas implements Runnable {
             lastTime = now;
             while (delta >= 1) {
                 tick();
-                //update++;
+                //updates++;
                 delta --;
             }
             render();
@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable {
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 frames = 0;
-                //update = 0;
+                //updates = 0;
             }
         }
         stop();
