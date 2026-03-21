@@ -1,7 +1,7 @@
 package it.unibo.shoot.model;
 
-//import java.awt.Window;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -13,13 +13,19 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Thread thread;
 
+    // Constructor
     public Game() {
-        new Window(1000, 563, "ShOOt", this);
+        // Calls a new window
+        new Window(1000, 563, "ShOOt", this); // TODO: change values
         start();
     }
 
 
-    // Noch
+    // Notch (Markus Persson) made this game loop
+    /*
+     Our window is getting updated 60 times per second,
+     updating the render method a couple thousand times per second.
+    */
     public void run() {
         this.requestFocus();
         long lastTime = System.nanoTime();
@@ -49,30 +55,40 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
+    // Used to update everything in the game
+    // Runs 60 times per second
     public void tick() {}
 
+    // To use graphics (render everything in the game)
+    // Runs a couple times per second
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
+            // Preloads (3) frames behind the actual window
             this.createBufferStrategy(3);
             return;
         }
         Graphics g = bs.getDrawGraphics();
         //
 
-        // la roba va qui
+        // Things we need to draw go here
+        // eg.
+        g.setColor(Color.blue);
+        g.fillRect(0, 0, 100, 100);
 
         //
         g.dispose();
         bs.show();
     }
 
+    // Starts thread
     private void start() {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
     }
 
+    // Stops thread
     private void stop() {
         isRunning = false;
         try {
@@ -83,6 +99,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String args[]) {
+        // Creates new instance of Game calling constructor
         new Game();
     }
 }

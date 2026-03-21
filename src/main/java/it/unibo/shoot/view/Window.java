@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 public class Window {
     public Window(int width, int height, String title, Game game) {
+        // Creates new JFrame
         JFrame frame = new JFrame(title);
 
         frame.setPreferredSize(new Dimension(width, height));
