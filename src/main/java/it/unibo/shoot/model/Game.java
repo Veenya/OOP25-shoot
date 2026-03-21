@@ -7,6 +7,8 @@ import java.awt.image.BufferStrategy;
 
 import it.unibo.shoot.view.Window;
 
+import it.unibo.shoot.model.box.Box; //tODO remove
+
 public class Game extends Canvas implements Runnable {
 
     //private static final long serialVersionUID = 1L;
@@ -21,6 +23,9 @@ public class Game extends Canvas implements Runnable {
         start();
 
         handler = new Handler();
+
+        //TODO: remove
+        handler.addObject(new Box(20, 20, ID.Box));
     }
 
 
