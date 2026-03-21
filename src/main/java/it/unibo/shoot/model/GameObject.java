@@ -12,14 +12,17 @@ public abstract class GameObject {
     protected int x, y; 
     // Speed of object
     protected float velX = 0, velY = 0;
+    // ID of object
+    protected ID id;
 
     // Constructor
-    public GameObject(int x, int  y) {
+    public GameObject(int x, int  y, ID id) {
         // Because when we inherit this class
         // for other classes we want to be able to
         // input x and y positions
         this.x = x;
         this.y = y;
+        this.id = id;
     }
 
     // Methods every object has in common
@@ -45,6 +48,10 @@ public abstract class GameObject {
         return velY;
     }
 
+    public ID getId() {
+        return id;
+    }
+
     // -------- Setters --------
 
     public void setX(int x) {
@@ -61,6 +68,10 @@ public abstract class GameObject {
 
     public void setVelY(int velY) {
         this.velY = velY;
+    }
+
+    public void setId(ID id) {
+        this.id = id;
     }
     
 }
