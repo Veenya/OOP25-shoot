@@ -12,12 +12,15 @@ public class Game extends Canvas implements Runnable {
     //private static final long serialVersionUID = 1L;
     private boolean isRunning = false;
     private Thread thread;
+    private Handler handler;
 
     // Constructor
     public Game() {
         // Calls a new window
         new Window(1000, 563, "ShOOt", this); // TODO: change values
         start();
+
+        handler = new Handler();
     }
 
 
@@ -57,7 +60,9 @@ public class Game extends Canvas implements Runnable {
 
     // Used to update everything in the game
     // Runs 60 times per second
-    public void tick() {}
+    public void tick() {
+        handler.tick();
+    }
 
     // To use graphics (render everything in the game)
     // Runs a couple times per second
@@ -72,9 +77,15 @@ public class Game extends Canvas implements Runnable {
         //
 
         // Things we need to draw go here
-        // eg.
+        // eg. Sample background
         g.setColor(Color.blue);
-        g.fillRect(0, 0, 100, 100);
+        g.fillRect(0, 0, 1000, 563);
+
+        /*
+        NOTE: it is important to put handler after the background
+        because graphics is placed top to bottom
+        */
+        handler.render(g);
 
         //
         g.dispose();
