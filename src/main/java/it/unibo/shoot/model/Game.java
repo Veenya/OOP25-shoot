@@ -4,10 +4,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
-
+import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.box.Box; //tODO remove
+import it.unibo.shoot.model.block.Block;
 
 public class Game extends Canvas implements Runnable {
 
@@ -15,6 +17,7 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Thread thread;
     private Handler handler;
+    private BufferedImage level = null;
 
     // Constructor
     public Game() {
@@ -24,6 +27,8 @@ public class Game extends Canvas implements Runnable {
 
         handler = new Handler();
 
+        BufferedImageLoader loader = new BufferedImageLoader();
+        level = loader.loadImage("/resources/map/map1.png"); //TODO: check if it works with every OS
         //TODO: remove
         handler.addObject(new Box(20, 20, ID.Box));
     }
@@ -95,6 +100,32 @@ public class Game extends Canvas implements Runnable {
         //
         g.dispose();
         bs.show();
+    }
+
+    // Loads the level
+    private void loadLevel(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        // TODO: use global variables
+        for (int xx = 0; xx < w; xx++) {
+            for (int yy = 0; yy < h; yy++) {
+                int pixel = image.getRGB(xx, yy);
+                // TODO: understand this
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+
+                if (red == 255) {
+                    handler.addObject(new Block(xx*32, yy*32, ID.Block));
+                }
+
+                if (blue == 255) {
+                    //TODO: player
+                    //handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
+                }
+            }
+        }
     }
 
     // Starts thread
