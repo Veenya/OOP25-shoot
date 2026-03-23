@@ -101,6 +101,9 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics g = bs.getDrawGraphics();
         
+        // Background
+        g.setColor(Color.pink);
+        g.fillRect(0, 0, 1000, 563);
         /*
         NOTE: it is important to put handler after the background
         because graphics is placed top to bottom
