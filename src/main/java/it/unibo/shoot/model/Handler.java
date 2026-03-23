@@ -13,6 +13,12 @@ public class Handler {
      
     /** List of all active objects in the game. */
     LinkedList<GameObject> object = new LinkedList<GameObject>();
+    
+    //TODO: implement once you do keyInputs, and make setters and getters
+    //private boolean up = false;
+    //private boolean down = false;
+    //private boolean left = false;
+    //private boolean right = false;
 
     /**
      * Updates the state of all objects in the game.

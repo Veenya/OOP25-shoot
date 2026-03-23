@@ -23,6 +23,7 @@ public class BufferedImageLoader {
             image = ImageIO.read(getClass().getResource(path));
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
         return image;

@@ -1,7 +1,9 @@
-package it.unibo.shoot;
+
 
 //import it.unibo.shoot.controller.menu.MainMenuController;
 //import it.unibo.shoot.controller.menu.MenuView;
+
+import it.unibo.shoot.model.Game; //TODO remove
 
 // TODO: Aggiungere i final
 
@@ -26,5 +28,9 @@ public class Main {
         // MenuView
         // MainMenuController
         // startMenu()
+
+
+        Game game = new Game();
+        //game.start();
     }
 }

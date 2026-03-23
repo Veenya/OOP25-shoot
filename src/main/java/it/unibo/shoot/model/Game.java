@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import it.unibo.shoot.view.Window;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
+import it.unibo.shoot.model.box.Box; //TODO remove
 
 /**
  * Main game class: handles window, game loop, rendering and level loading.
@@ -22,6 +23,8 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private BufferedImage level = null;
+    private Box box;
+    
 
     // Constructor
     //TODO: da finire
@@ -30,16 +33,18 @@ public class Game extends Canvas implements Runnable {
      * Initializes window, handler, image loader. 
      */
     public Game() {
-        // Calls a new window
         new Window(1000, 563, "ShOOt", this); // TODO: change values
         start();
 
         handler = new Handler();
+        //this.addKeyListener(new KeyInput(handler));
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/resources/map/map1.png"); //TODO: check if it works with every OS
+        level = loader.loadImage("/map1.png"); //TODO: check if it works with every OS
         
         loadLevel(level);
+
+        
     }
 
 
@@ -98,20 +103,12 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics g = bs.getDrawGraphics();
         
-
-        // Things we need to draw go here
-        // eg. Sample background
-
-        g.setColor(Color.blue); // TODO: remove
-        g.fillRect(0, 0, 1000, 563); // TODO: remove
-
         /*
         NOTE: it is important to put handler after the background
         because graphics is placed top to bottom
         */
         handler.render(g);
 
-        //
         g.dispose();
         bs.show();
     }
@@ -123,6 +120,8 @@ public class Game extends Canvas implements Runnable {
     private void loadLevel(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
+
+        System.out.println(w);
 
         // TODO: use global variables
         for (int xx = 0; xx < w; xx++) {
@@ -140,6 +139,8 @@ public class Game extends Canvas implements Runnable {
                 if (blue == 255) {
                     //TODO: player
                     //handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
+                    //TODO: change, this i sonly a test
+                    handler.addObject(new Box(xx*32, yy*32, ID.Box));
                 }
 
                 if (green == 255) {
