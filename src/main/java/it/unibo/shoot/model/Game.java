@@ -8,9 +8,13 @@ import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
-import it.unibo.shoot.model.box.Box; //tODO remove
 import it.unibo.shoot.model.block.Block;
 
+/**
+ * Main game class: handles window, game loop, rendering and level loading.
+ * 
+ * Uses a fixed 60 ticks per second to update the loop.
+ */
 public class Game extends Canvas implements Runnable {
 
     //private static final long serialVersionUID = 1L;
@@ -20,6 +24,11 @@ public class Game extends Canvas implements Runnable {
     private BufferedImage level = null;
 
     // Constructor
+    //TODO: da finire
+    /**
+     * Constructof of Game object.
+     * Initializes window, handler, image loader. 
+     */
     public Game() {
         // Calls a new window
         new Window(1000, 563, "ShOOt", this); // TODO: change values
@@ -29,18 +38,19 @@ public class Game extends Canvas implements Runnable {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/resources/map/map1.png"); //TODO: check if it works with every OS
-        //TODO: remove
-        handler.addObject(new Box(20, 20, ID.Box));
+        
+        loadLevel(level);
     }
 
 
     // Notch (Markus Persson) made this game loop
-    /*
-     Our window is getting updated 60 times per second,
-     updating the render method a couple thousand times per second.
+    // TODO: this is wrong, fix it. Also make better javadoc.
+    /**
+     * Updates window 60 times per second, updating the render method a couple thousands times per second.
     */
+    @Override
     public void run() {
-        this.requestFocus();
+        this.requestFocus();// TODO: why
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -68,14 +78,17 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    // Used to update everything in the game
-    // Runs 60 times per second
+    /**
+     * Updates everything in the game. It runs 60 times per second.
+     */
     public void tick() {
         handler.tick();
     }
 
-    // To use graphics (render everything in the game)
-    // Runs a couple times per second
+    /**
+     * Renders everything in the game using graphics.
+     * It runs a couple thousand times per second.
+     */
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
@@ -84,12 +97,13 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        //
+        
 
         // Things we need to draw go here
         // eg. Sample background
-        g.setColor(Color.blue);
-        g.fillRect(0, 0, 1000, 563);
+
+        g.setColor(Color.blue); // TODO: remove
+        g.fillRect(0, 0, 1000, 563); // TODO: remove
 
         /*
         NOTE: it is important to put handler after the background
@@ -102,7 +116,10 @@ public class Game extends Canvas implements Runnable {
         bs.show();
     }
 
-    // Loads the level
+    /**
+     * Loads level from image.
+     * @param image that will be displayed as level map.
+     */
     private void loadLevel(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
@@ -124,18 +141,22 @@ public class Game extends Canvas implements Runnable {
                     //TODO: player
                     //handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
                 }
+
+                if (green == 255) {
+                    //TODO ...
+                }
             }
         }
     }
 
-    // Starts thread
+    /** Starts thread */
     private void start() {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
     }
 
-    // Stops thread
+    /** Stops thread */
     private void stop() {
         isRunning = false;
         try {
@@ -145,8 +166,11 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    /**
+     * Creates new instance of Game calling the constructor.
+     * @param args
+     */
     public static void main(String args[]) {
-        // Creates new instance of Game calling constructor
         new Game();
     }
 }

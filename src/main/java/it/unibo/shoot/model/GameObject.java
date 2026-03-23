@@ -3,31 +3,54 @@ package it.unibo.shoot.model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-// Every object in the game derives from this
 // Class needs to be abstract because it is a blueprint for other classes
 // and cannot be instantiated directly.
+
+/**
+ * Base class for each object present in the game, every object derives from this.
+ * 
+ * It provides all the functions and parameters that are in common to every object in the game.
+ */
 public abstract class GameObject {
 
-    // Location of object
+    /** (x, y) position of object. */
     protected int x, y; 
-    // Speed of object
+    /** Speed of object in pixels per tick. */
     protected float velX = 0, velY = 0;
-    // ID of object
+    /**ID of object type. */
     protected ID id;
 
-    // Constructor
+    /**
+     * Constructor for a new game object in the specified position.
+     * @param x starting x position.
+     * @param y starting y position.
+     * @param id object type identifier.
+     */
     public GameObject(int x, int  y, ID id) {
-        // Because when we inherit this class
-        // for other classes we want to be able to
-        // input x and y positions
         this.x = x;
         this.y = y;
         this.id = id;
     }
 
     // Methods every object has in common
-    public abstract void tick(); // they need to update
+
+    /** 
+     * Updates object state each game tick 
+     */
+    public abstract void tick();
+
+    /**
+     * Renders object in graphics context. 
+     * 
+     * @param g graphics context.
+     */
     public abstract void render(Graphics g);
+
+    /**
+     * Returns the bounding rectangle of the object, used for collisions.
+     * 
+     * @return bounding rectangle.
+     */
     public abstract Rectangle getBounds();
 
     // -------- Getters --------

@@ -2,11 +2,19 @@ package it.unibo.shoot.view;
 
 import it.unibo.shoot.model.Game;
 import java.awt.Dimension;
-//import java.awt.Frame;
 
 import javax.swing.JFrame;
 
-// TODO: javadoc
+/**
+ * Creates and configures the main window for the application using JFrame.
+ * 
+ * Sets a fixed size, adds the Game panel, centers the window, disables resizing, and makes it visible.
+ * 
+ * @param width the width of the window in pixels
+ * @param height the height of the window in pixels
+ * @param title the title of the window displayed in the top bar
+ * @param game the game that is displayed in the windodw
+*/
 
 public class Window {
     public Window(int width, int height, String title, Game game) {
