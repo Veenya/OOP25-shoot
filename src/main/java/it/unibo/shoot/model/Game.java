@@ -26,14 +26,14 @@ public class Game extends Canvas implements Runnable {
     //private Box box;
     
 
-    // Constructor
+
     //TODO: da finire
     /**
      * Constructof of Game object.
      * Initializes window, handler, image loader. 
      */
     public Game() {
-        new Window(1000, 563, "ShOOt", this); // TODO: change values
+        new Window();
         start();
 
         handler = new Handler();
