@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private BufferedImage level = null;
-    private Box box;
+    //private Box box;
     
 
     // Constructor
@@ -40,11 +40,9 @@ public class Game extends Canvas implements Runnable {
         //this.addKeyListener(new KeyInput(handler));
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/map1.png"); //TODO: check if it works with every OS
+        level = loader.loadImage("/maps/map1.png"); //TODO: check if it works with every OS
         
         loadLevel(level);
-
-        
     }
 
 
