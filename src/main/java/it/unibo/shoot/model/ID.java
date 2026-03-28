@@ -23,6 +23,11 @@ public enum ID {
     /**Item that can be picked up by player and grants upgrades. */
     Weapon,
 
+    //TODO: not sure if it goes here
+    Floor,
+
     /**Experience that when picked up gives progression to the player. */
     Experience;
+
+
 }

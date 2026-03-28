@@ -23,28 +23,26 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private BufferedImage level = null;
-    private Box box;
+    //private Box box;
     
 
-    // Constructor
+
     //TODO: da finire
     /**
      * Constructof of Game object.
      * Initializes window, handler, image loader. 
      */
     public Game() {
-        new Window(1000, 563, "ShOOt", this); // TODO: change values
+        new Window();
         start();
 
         handler = new Handler();
         //this.addKeyListener(new KeyInput(handler));
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/map1.png"); //TODO: check if it works with every OS
+        level = loader.loadImage("/maps/map1.png"); //TODO: check if it works with every OS
         
         loadLevel(level);
-
-        
     }
 
 
@@ -103,6 +101,9 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics g = bs.getDrawGraphics();
         
+        // Background
+        g.setColor(Color.pink);
+        g.fillRect(0, 0, 1000, 563);
         /*
         NOTE: it is important to put handler after the background
         because graphics is placed top to bottom
