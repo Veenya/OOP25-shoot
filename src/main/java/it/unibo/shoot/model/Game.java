@@ -7,9 +7,11 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
+import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
 import it.unibo.shoot.model.box.Box; //TODO remove
+
 
 /**
  * Main game class: handles window, game loop, rendering and level loading.
@@ -23,7 +25,13 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private BufferedImage level = null;
-    //private Box box;
+
+
+
+    //TODO: put in different file
+    int width = 1000;
+    int height = 563;
+    String title = "sh00t";
     
 
 
@@ -33,11 +41,13 @@ public class Game extends Canvas implements Runnable {
      * Initializes window, handler, image loader. 
      */
     public Game() {
-        new Window();
+        new Window(width, height, title, this);
         start();
 
         handler = new Handler();
-        //this.addKeyListener(new KeyInput(handler));
+  
+        
+        handler.addObject(new Box(200, 200, ID.Box));
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/maps/map1.png"); //TODO: check if it works with every OS
@@ -138,10 +148,7 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (blue == 255) {
-                    //TODO: player
-                    //handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
-                    //TODO: change, this i sonly a test
-                    handler.addObject(new Box(xx*32, yy*32, ID.Box));
+                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this));
                 }
 
                 if (green == 255) {

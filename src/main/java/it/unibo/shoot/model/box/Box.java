@@ -27,7 +27,7 @@ public class Box extends GameObject{
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.blue);
+        g.setColor(Color.BLUE);
         g.fillRect(x, y, 32, 32);
     }
 
