@@ -2,6 +2,7 @@ package it.unibo.shoot.model.block;
 
 import it.unibo.shoot.model.GameObject;
 import it.unibo.shoot.model.ID;
+import it.unibo.shoot.util.Constants;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -23,6 +24,7 @@ public class Block extends GameObject{
      */
 	public Block(int x, int y, ID id) {
 		super(x, y, id);
+        this.layer = Constants.TILES_LAYER;
 	}
 
 

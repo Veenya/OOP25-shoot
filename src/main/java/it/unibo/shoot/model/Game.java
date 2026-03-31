@@ -129,6 +129,8 @@ public class Game extends Canvas implements Runnable {
 
         g2d.translate(camera.getX(), camera.getY());
 
+        //TODO: HUD coordinate fisse sullo schermo
+        //renderHUD(g);
 
         /////////////
         g.dispose();

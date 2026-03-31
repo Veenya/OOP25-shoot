@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import it.unibo.shoot.view.PlayerView;
 import it.unibo.shoot.controller.PlayerController;
+import it.unibo.shoot.util.Constants;
 
 public class Player extends GameObject {
 
@@ -22,6 +23,8 @@ public class Player extends GameObject {
         this.model = new PlayerModel(x, y, 5.0, 100); 
         this.view = new PlayerView(model);
         this.controller = new PlayerController(model);
+
+        this.layer = Constants.PLAYER_LAYER;
 
         canvas.addKeyListener(controller);
     }

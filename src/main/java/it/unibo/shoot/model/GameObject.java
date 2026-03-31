@@ -19,6 +19,8 @@ public abstract class GameObject {
     protected float velX = 0, velY = 0;
     /**ID of object type. */
     protected ID id;
+    /**Layer where object will be rendered */
+    protected int layer;
 
     /**
      * Constructor for a new game object in the specified position.
@@ -75,6 +77,10 @@ public abstract class GameObject {
         return id;
     }
 
+    public int getLayer() {
+        return layer;
+    }
+
     // -------- Setters --------
 
     public void setX(int x) {
@@ -95,6 +101,10 @@ public abstract class GameObject {
 
     public void setId(ID id) {
         this.id = id;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
     }
     
 }

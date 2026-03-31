@@ -1,7 +1,9 @@
 package it.unibo.shoot.model;
 
 import java.util.LinkedList;
+import java.util.Comparator;
 import java.awt.Graphics;
+
 
 
 /**
@@ -13,12 +15,7 @@ public class Handler {
      
     /** List of all active objects in the game. */
     LinkedList<GameObject> object = new LinkedList<GameObject>();
-    
-    //TODO: implement once you do keyInputs, and make setters and getters
-    //private boolean up = false;
-    //private boolean down = false;
-    //private boolean left = false;
-    //private boolean right = false;
+
 
     /**
      * Updates the state of all objects in the game.
@@ -37,9 +34,11 @@ public class Handler {
      * @param g graphics context.
      */
     public void render(Graphics g) {
+        // Ordina per layer (ordine crescente)
+        object.sort(Comparator.comparingInt(GameObject::getLayer));
+
         for (int i = 0; i < object.size(); i++) {
-            GameObject tempObject = object.get(i);
-            tempObject.render(g);
+            object.get(i).render(g);
         }
     }
 
