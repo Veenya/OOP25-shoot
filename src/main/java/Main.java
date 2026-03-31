@@ -3,7 +3,7 @@
 //import it.unibo.shoot.controller.menu.MainMenuController;
 //import it.unibo.shoot.controller.menu.MenuView;
 
-import it.unibo.shoot.model.Game; //TODO remove
+import it.unibo.shoot.model.Game;
 
 // TODO: Aggiungere i final
 
@@ -12,7 +12,6 @@ import it.unibo.shoot.model.Game; //TODO remove
  */
 public class Main {
 
-    // TODO: check if necessary
     // It should prevent instance creation.
     private Main() {
 

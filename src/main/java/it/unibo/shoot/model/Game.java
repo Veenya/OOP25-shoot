@@ -8,10 +8,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
-import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
 import it.unibo.shoot.view.Camera;
+import it.unibo.shoot.util.Constants;
 
 /**
  * Main game class: handles window, game loop, rendering and level loading.
@@ -27,12 +27,9 @@ public class Game extends Canvas implements Runnable {
     private BufferedImage level = null;
     private Camera camera;
 
-
-
-    //TODO: put in different file
-    int width = 1000;
-    int height = 563;
-    String title = "sh00t";
+    int width = Constants.SCREEN_WIDTH;
+    int height = Constants.SCREEN_HEIGHT;
+    String title = Constants.TITLE;
     
 
 
@@ -119,7 +116,7 @@ public class Game extends Canvas implements Runnable {
         ////////////////
         // Background
         g.setColor(Color.pink);
-        g.fillRect(0, 0, 1000, 563);
+        g.fillRect(0, 0, width, height);
         
         g2d.translate(-camera.getX(), -camera.getY());
         
@@ -158,11 +155,11 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;
 
                 if (red == 255) {
-                    handler.addObject(new Block(xx*32, yy*32, ID.Block));
+                    handler.addObject(new Block(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Block));
                 }
 
                 if (blue == 255) {
-                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this));
+                    handler.addObject(new Player(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Player, this));
                 }
 
                 if (green == 255) {

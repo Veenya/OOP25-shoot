@@ -1,6 +1,8 @@
 package it.unibo.shoot.view;
 
 import it.unibo.shoot.model.GameObject;
+import it.unibo.shoot.util.Constants;
+
 
 
 /**
@@ -27,9 +29,18 @@ public class Camera {
      */
     public void tick(GameObject object) {
         // TODO: Put globals instead of this horrific numbers
-        x = object.getX() - 1000/2;
-        y = object.getY() - 563/2;
+        x = object.getX() - Constants.SCREEN_WIDTH/2;
+        y = object.getY() - Constants.SCREEN_HEIGHT/2;
 
+        // Clamp
+        
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        if (x > Constants.WORLD_WIDTH - Constants.SCREEN_WIDTH)
+            x = Constants.WORLD_WIDTH - Constants.SCREEN_WIDTH;
+        if (y > Constants.WORLD_HEIGHT - Constants.SCREEN_HEIGHT)
+            y = Constants.WORLD_HEIGHT - Constants.SCREEN_HEIGHT;
+        
         // Alternative (smoother)
         /*
         x += ((object.getX() - x) - 1000/2 * 0.05f);

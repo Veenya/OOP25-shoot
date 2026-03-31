@@ -4,10 +4,6 @@ package it.unibo.shoot.model;
  * Enum for different types of game objects in the game.
  */
 public enum ID {
-    // TODO: remove
-    /** Example class */
-    Box,
-
     /**Player object that can be controlled.*/
     Player,
     
