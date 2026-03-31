@@ -1,3 +1,7 @@
+# Gradle
+.gradle/
+build/
+
 # Compiled class file
 *.class
 
@@ -10,8 +14,10 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
-*.jar
+# Package Files
+# *.jar
+# ignore solo i jar buildati automaticamente
+build/*.jar
 *.war
 *.nar
 *.ear
