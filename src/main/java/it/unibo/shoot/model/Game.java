@@ -10,7 +10,6 @@ import it.unibo.shoot.view.Window;
 import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
-import it.unibo.shoot.model.box.Box; //TODO remove
 
 
 /**
@@ -47,7 +46,6 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler();
   
         
-        handler.addObject(new Box(200, 200, ID.Box));
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/maps/map1.png"); //TODO: check if it works with every OS
