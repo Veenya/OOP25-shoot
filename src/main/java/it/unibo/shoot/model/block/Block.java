@@ -40,7 +40,7 @@ public class Block extends GameObject{
      */
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(Color.BLACK);
 		g.fillRect(x, y, 32, 32);
 	}
 	
