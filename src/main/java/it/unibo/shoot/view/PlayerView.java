@@ -12,7 +12,7 @@ public class PlayerView {
 
     public void render(Graphics2D g2) {
         // Disegniamo un quadrato rosso come segnaposto
-        g2.setColor(Color.RED);
+        g2.setColor(Color.BLUE);
         g2.fillRect((int)model.getX(), (int)model.getY(), 32, 32);
     }
     

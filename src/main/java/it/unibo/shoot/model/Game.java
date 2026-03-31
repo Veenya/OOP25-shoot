@@ -3,6 +3,7 @@ package it.unibo.shoot.model;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -10,7 +11,7 @@ import it.unibo.shoot.view.Window;
 import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
-
+import it.unibo.shoot.view.Camera;
 
 /**
  * Main game class: handles window, game loop, rendering and level loading.
@@ -24,6 +25,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private BufferedImage level = null;
+    private Camera camera;
 
 
 
@@ -44,7 +46,7 @@ public class Game extends Canvas implements Runnable {
         start();
 
         handler = new Handler();
-  
+        camera = new Camera(0, 0);
         
 
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -93,6 +95,11 @@ public class Game extends Canvas implements Runnable {
      * Updates everything in the game. It runs 60 times per second.
      */
     public void tick() {
+        for (int i = 0; i<handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ID.Player) {
+                camera.tick(handler.object.get(i));
+            }
+        }
         handler.tick();
     }
 
@@ -108,16 +115,25 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        
+        Graphics2D g2d = (Graphics2D) g;
+        ////////////////
         // Background
         g.setColor(Color.pink);
         g.fillRect(0, 0, 1000, 563);
+        
+        g2d.translate(-camera.getX(), -camera.getY());
+        
         /*
         NOTE: it is important to put handler after the background
         because graphics is placed top to bottom
         */
+       
         handler.render(g);
 
+        g2d.translate(camera.getX(), camera.getY());
+
+
+        /////////////
         g.dispose();
         bs.show();
     }

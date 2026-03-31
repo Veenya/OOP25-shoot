@@ -27,8 +27,8 @@ public class Camera {
      */
     public void tick(GameObject object) {
         // TODO: Put globals instead of this horrific numbers
-        x = object.getX() + 1000/2;
-        y = object.getY() + 563/2;
+        x = object.getX() - 1000/2;
+        y = object.getY() - 563/2;
 
         // Alternative (smoother)
         /*
