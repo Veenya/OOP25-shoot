@@ -1,6 +1,7 @@
 package it.unibo.shoot.model;
 
 import java.awt.Graphics;
+import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import it.unibo.shoot.view.PlayerView;
@@ -13,7 +14,7 @@ public class Player extends GameObject {
     private PlayerView view;
     private PlayerController controller;
 
-    public Player(int x, int y, ID id) {
+    public Player(int x, int y, ID id, Canvas canvas) {
         super(x, y, id); // Passiamo i dati al costruttore di Vera
         
         // Inizializziamo il tuo MVC
@@ -21,6 +22,8 @@ public class Player extends GameObject {
         this.model = new PlayerModel(x, y, 5.0, 100); 
         this.view = new PlayerView(model);
         this.controller = new PlayerController(model);
+
+        canvas.addKeyListener(controller);
     }
 
     @Override
