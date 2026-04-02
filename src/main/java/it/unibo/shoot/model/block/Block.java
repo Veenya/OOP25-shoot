@@ -1,5 +1,6 @@
 package it.unibo.shoot.model.block;
 
+import it.unibo.shoot.loader.SpriteSheet;
 import it.unibo.shoot.model.GameObject;
 import it.unibo.shoot.model.ID;
 import it.unibo.shoot.util.Constants;
@@ -7,6 +8,7 @@ import it.unibo.shoot.util.Constants;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 /**
  * Represents a solid, impassable block in the game world.
@@ -22,9 +24,13 @@ public class Block extends GameObject{
      * @param y is the y position of the block
      * @param id is the enum used to identify what kind of objec it is, in this case ID.Block.
      */
-	public Block(int x, int y, ID id) {
-		super(x, y, id);
+
+    private BufferedImage block_image;
+
+	public Block(int x, int y, ID id, SpriteSheet ss) {
+		super(x, y, id, ss);
         this.layer = Constants.TILES_LAYER;
+        block_image = ss.grabImage(1, 0);
 	}
 
 
@@ -42,8 +48,9 @@ public class Block extends GameObject{
      */
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(x, y, 32, 32);
+		//g.setColor(Color.BLACK);
+		//g.fillRect(x, y, 32, 32);
+        g.drawImage(block_image, x, y, null);
 	}
 	
     /**

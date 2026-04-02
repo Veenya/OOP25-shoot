@@ -24,8 +24,21 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Thread thread;
     private Handler handler;
-    private BufferedImage level = null;
     private Camera camera;
+    private SpriteSheet tile_ss;
+    //TODO: other spritesheets
+    //private SpriteSheet player_ss;
+    //private Spritesheet enemy_ss;
+
+    private BufferedImage level = null;
+    //private BufferedImage tile_sheet = null;
+    private BufferedImage floor = null;
+    private BufferedImage block = null;
+    //private BufferedImage player_sheet = null;
+    //private BufferedImage enemy_sheet = null;
+    // TODO other sheets if needed...
+
+    
 
     int width = Constants.SCREEN_WIDTH;
     int height = Constants.SCREEN_HEIGHT;
@@ -48,7 +61,14 @@ public class Game extends Canvas implements Runnable {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/maps/map1.png"); //TODO: check if it works with every OS
-        
+        //tile_sheet = loader.loadImage("/tiles/floor_tile.png");
+        //TODO: put other sheets here
+
+        tile_ss = new SpriteSheet("/tiles/tileset.png");
+        floor = tile_ss.grabImage(0, 0);
+        block = tile_ss.grabImage(1, 0);
+        //TODO other spritesheets
+
         loadLevel(level);
     }
 
@@ -115,10 +135,17 @@ public class Game extends Canvas implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
         ////////////////
         // Background
-        g.setColor(Color.pink);
-        g.fillRect(0, 0, width, height);
+        //g.setColor(Color.pink);
+        //g.fillRect(0, 0, width, height);
         
         g2d.translate(-camera.getX(), -camera.getY());
+
+        //TODO change numbers
+        for (int xx = 0; xx < 30*72; xx+=32) {
+            for (int yy=0; yy < 30*72; yy+=32) {
+                g.drawImage(floor, xx, yy, null);
+            }
+        }
         
         /*
         NOTE: it is important to put handler after the background
@@ -157,11 +184,11 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;
 
                 if (red == 255) {
-                    handler.addObject(new Block(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Block));
+                    handler.addObject(new Block(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Block, tile_ss));
                 }
 
                 if (blue == 255) {
-                    handler.addObject(new Player(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Player, this));
+                    handler.addObject(new Player(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Player, this, null));
                 }
 
                 if (green == 255) {

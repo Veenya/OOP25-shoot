@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import it.unibo.shoot.view.PlayerView;
 import it.unibo.shoot.controller.PlayerController;
+import it.unibo.shoot.loader.SpriteSheet;
 import it.unibo.shoot.util.Constants;
 
 public class Player extends GameObject {
@@ -15,8 +16,8 @@ public class Player extends GameObject {
     private PlayerView view;
     private PlayerController controller;
 
-    public Player(int x, int y, ID id, Canvas canvas) {
-        super(x, y, id); // Passiamo i dati al costruttore di Vera
+    public Player(int x, int y, ID id, Canvas canvas, SpriteSheet ss) {
+        super(x, y, id, ss); // Passiamo i dati al costruttore di Vera
         
         // Inizializziamo il tuo MVC
         // Passiamo x e y iniziali al tuo model
