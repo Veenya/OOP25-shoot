@@ -38,9 +38,6 @@ public class GamePanel extends JPanel {
         Graphics2D g2 = (Graphics2D)g;
         g2.dispose();
     }
-
-    // TODO: setters and getters
-
     // -------- Getters --------
 
     public int getOriginalTileSize() {

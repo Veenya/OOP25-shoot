@@ -1,11 +1,6 @@
-
-
-//import it.unibo.shoot.controller.menu.MainMenuController;
-//import it.unibo.shoot.controller.menu.MenuView;
-
 import it.unibo.shoot.model.Game;
 
-// TODO: Aggiungere i final
+// TODO: Aggiungere i final?
 
 /**
  * Main class of the game.
@@ -23,12 +18,12 @@ public class Main {
      * @param args parameter for the application.
      */
     public static void main(String[] args) {
-        System.out.println("Hello");
         // MenuView
         // MainMenuController
         // startMenu()
 
 
+        //TODO solve this squiggly line thing
         Game game = new Game();
         //game.start();
     }

@@ -5,18 +5,24 @@ import it.unibo.shoot.util.Constants;
 
 
 /**
- * this class gets the image and crops it into the images
- * from the spritesheet so we get what we want, for example the player
+ * Loads a spritesheet image and allows cropping individual tiles from it.
  */
 public class SpriteSheet {
     
     private BufferedImage image;
 
-    /** when we create it we put the image we'll work in */
+    /** Creates a new SpriteSheet by loading an image from the given resource path. */
     public SpriteSheet(String path) {
         this.image = new BufferedImageLoader().loadImage(path);
     }
 
+    /**
+     * Takes a subsection image from the spritesheet.
+     * 
+     * @param col the column number of the image (starts at 0).
+     * @param row the row number of the image (starts at 0).
+     * @return the subimage from the spritesheet.
+     */
     public BufferedImage grabImage(int col, int row) {
         int x = col * Constants.TILE_SIZE;
         int y = row * Constants.TILE_SIZE;

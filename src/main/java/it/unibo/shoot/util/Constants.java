@@ -1,5 +1,10 @@
 package it.unibo.shoot.util;
 
+/**
+ * Keeps all the constants of the application,
+ * it is used to store all the constants so they are accessible to other classes
+ * from this singular point.
+ */
 public class Constants {
     private Constants() {}
 

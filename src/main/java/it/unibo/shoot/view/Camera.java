@@ -28,7 +28,6 @@ public class Camera {
      * @param object the focus of the camera's center (usually the player).
      */
     public void tick(GameObject object) {
-        // TODO: Put globals instead of this horrific numbers
         x = object.getX() - Constants.SCREEN_WIDTH/2;
         y = object.getY() - Constants.SCREEN_HEIGHT/2;
 

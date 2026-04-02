@@ -5,7 +5,6 @@ import it.unibo.shoot.model.GameObject;
 import it.unibo.shoot.model.ID;
 import it.unibo.shoot.util.Constants;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
