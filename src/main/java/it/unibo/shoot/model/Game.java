@@ -54,7 +54,7 @@ public class Game extends Canvas implements Runnable {
      */
     public Game() {
         new Window(width, height, title, this);
-        start();
+        
 
         handler = new Handler();
         camera = new Camera(0, 0);
@@ -71,6 +71,7 @@ public class Game extends Canvas implements Runnable {
         //TODO other spritesheets
 
         loadLevel(level);
+        start();
     }
 
 
@@ -136,8 +137,8 @@ public class Game extends Canvas implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
         ////////////////
         // Background
-        //g.setColor(Color.pink);
-        //g.fillRect(0, 0, width, height);
+        g.setColor(Color.pink);
+        g.fillRect(0, 0, width, height);
         
         g2d.translate(-camera.getX(), -camera.getY());
 
@@ -190,9 +191,9 @@ public class Game extends Canvas implements Runnable {
 
                 if (blue == 255) {
                     //TODO: player
-                    //handler.addObject(new Player(xx*32, yy*32, ID.Player));
+                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, tile_ss));
                     //TODO: change, this i sonly a test
-                    handler.addObject(new Box(xx*32, yy*32, ID.Box));
+                  
                 }
 
                 if (green == 255) {
