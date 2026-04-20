@@ -30,16 +30,23 @@ public class Player extends GameObject {
         canvas.addKeyListener(controller);
     }
 
-    @Override
-    public void tick() {
-        // 1. Chiamiamo il tuo controller per gestire l'input
-        controller.update(); 
-        
-        // 2. Sincronizziamo la posizione del GameObject di Vera con il tuo Model
-        // Questo è fondamentale perché Vera userà x e y per le collisioni
-        this.x = (int) model.getX();
-        this.y = (int) model.getY();
-    }
+   // Nel tuo Player.java (quello che estende GameObject)
+
+@Override
+public void tick() {
+    // 1. Il controller legge i tasti e imposta la velocità nel Model
+    controller.update(); 
+    
+    // 2. Il model aggiorna la sua posizione interna
+    model.updatePosition();
+    
+    // 3. SINCRONIZZAZIONE: Copiamo i dati dal Model al GameObject di Vera
+    // Così Vera può usarli per le sue collisioni nell'Handler
+    this.x = (int) model.getX();
+    this.y = (int) model.getY();
+    this.velX = model.getVelX();
+    this.velY = model.getVelY();
+}
 
     @Override
     public void render(Graphics g) {

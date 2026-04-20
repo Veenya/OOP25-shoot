@@ -17,19 +17,18 @@ public class PlayerController implements KeyListener {
     }
 
     // Questo metodo verrà chiamato 60 volte al secondo da Murgia (Game Loop)
-    public void update() {
-        double dx = 0;
-        double dy = 0;
+   public void update() {
+    float dx = 0;
+    float dy = 0;
 
-        // Controlliamo cosa c'è nella nostra lista dei tasti
-        if (pressedKeys.contains(KeyEvent.VK_W)) dy--; // Su (Y diminuisce)
-        if (pressedKeys.contains(KeyEvent.VK_S)) dy++; // Giù (Y aumenta)
-        if (pressedKeys.contains(KeyEvent.VK_A)) dx--; // Sinistra (X diminuisce)
-        if (pressedKeys.contains(KeyEvent.VK_D)) dx++; // Destra (X aumenta)
+    if (pressedKeys.contains(KeyEvent.VK_W)) dy--;
+    if (pressedKeys.contains(KeyEvent.VK_S)) dy++;
+    if (pressedKeys.contains(KeyEvent.VK_A)) dx--;
+    if (pressedKeys.contains(KeyEvent.VK_D)) dx++;
 
-        // Diciamo al Model di aggiornare la sua posizione
-        model.move(dx, dy);
-    }
+    // Diciamo al model quanta velocità deve avere in base ai tasti
+    model.setVelocity(dx, dy);
+}
 
     @Override
     public void keyPressed(KeyEvent e) {

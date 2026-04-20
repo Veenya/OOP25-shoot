@@ -13,6 +13,7 @@ import it.unibo.shoot.model.block.Block;
 import it.unibo.shoot.view.Camera;
 import it.unibo.shoot.util.Constants;
 
+
 /**
  * Main game class: handles window, game loop, rendering and level loading.
  * 
@@ -188,7 +189,10 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (blue == 255) {
-                    handler.addObject(new Player(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Player, this, null));
+                    //TODO: player
+                    //handler.addObject(new Player(xx*32, yy*32, ID.Player));
+                    //TODO: change, this i sonly a test
+                    handler.addObject(new Box(xx*32, yy*32, ID.Box));
                 }
 
                 if (green == 255) {
