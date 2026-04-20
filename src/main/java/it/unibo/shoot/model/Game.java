@@ -3,14 +3,15 @@ package it.unibo.shoot.model;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
-import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
-import it.unibo.shoot.model.box.Box; //TODO remove
+import it.unibo.shoot.view.Camera;
+import it.unibo.shoot.util.Constants;
 
 
 /**
@@ -24,14 +25,25 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Thread thread;
     private Handler handler;
+    private Camera camera;
+    private SpriteSheet tile_ss;
+    //TODO: other spritesheets
+    //private SpriteSheet player_ss;
+    //private Spritesheet enemy_ss;
+
     private BufferedImage level = null;
+    //private BufferedImage tile_sheet = null;
+    private BufferedImage floor = null;
+    private BufferedImage block = null;
+    //private BufferedImage player_sheet = null;
+    //private BufferedImage enemy_sheet = null;
+    // TODO other sheets if needed...
 
+    
 
-
-    //TODO: put in different file
-    int width = 1000;
-    int height = 563;
-    String title = "sh00t";
+    int width = Constants.SCREEN_WIDTH;
+    int height = Constants.SCREEN_HEIGHT;
+    String title = Constants.TITLE;
     
 
 
@@ -45,13 +57,19 @@ public class Game extends Canvas implements Runnable {
         start();
 
         handler = new Handler();
-  
+        camera = new Camera(0, 0);
         
-        handler.addObject(new Box(200, 200, ID.Box));
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/maps/map1.png"); //TODO: check if it works with every OS
-        
+        //tile_sheet = loader.loadImage("/tiles/floor_tile.png");
+        //TODO: put other sheets here
+
+        tile_ss = new SpriteSheet("/tiles/tileset.png");
+        floor = tile_ss.grabImage(0, 0);
+        block = tile_ss.grabImage(1, 0);
+        //TODO other spritesheets
+
         loadLevel(level);
     }
 
@@ -95,6 +113,11 @@ public class Game extends Canvas implements Runnable {
      * Updates everything in the game. It runs 60 times per second.
      */
     public void tick() {
+        for (int i = 0; i<handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ID.Player) {
+                camera.tick(handler.object.get(i));
+            }
+        }
         handler.tick();
     }
 
@@ -110,16 +133,34 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        
+        Graphics2D g2d = (Graphics2D) g;
+        ////////////////
         // Background
-        g.setColor(Color.pink);
-        g.fillRect(0, 0, 1000, 563);
+        //g.setColor(Color.pink);
+        //g.fillRect(0, 0, width, height);
+        
+        g2d.translate(-camera.getX(), -camera.getY());
+
+        //TODO change numbers
+        for (int xx = 0; xx < 30*72; xx+=32) {
+            for (int yy=0; yy < 30*72; yy+=32) {
+                g.drawImage(floor, xx, yy, null);
+            }
+        }
+        
         /*
         NOTE: it is important to put handler after the background
         because graphics is placed top to bottom
         */
+       
         handler.render(g);
 
+        g2d.translate(camera.getX(), camera.getY());
+
+        //TODO: HUD coordinate fisse sullo schermo
+        //renderHUD(g);
+
+        /////////////
         g.dispose();
         bs.show();
     }
@@ -144,11 +185,14 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;
 
                 if (red == 255) {
-                    handler.addObject(new Block(xx*32, yy*32, ID.Block));
+                    handler.addObject(new Block(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Block, tile_ss));
                 }
 
                 if (blue == 255) {
-                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this));
+                    //TODO: player
+                    //handler.addObject(new Player(xx*32, yy*32, ID.Player));
+                    //TODO: change, this i sonly a test
+                    handler.addObject(new Box(xx*32, yy*32, ID.Box));
                 }
 
                 if (green == 255) {

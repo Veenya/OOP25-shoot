@@ -3,6 +3,8 @@ package it.unibo.shoot.model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import it.unibo.shoot.loader.SpriteSheet;
+
 // Class needs to be abstract because it is a blueprint for other classes
 // and cannot be instantiated directly.
 
@@ -19,6 +21,10 @@ public abstract class GameObject {
     protected float velX = 0, velY = 0;
     /**ID of object type. */
     protected ID id;
+    /**Layer where object will be rendered */
+    protected int layer;
+
+    protected SpriteSheet ss;
 
     /**
      * Constructor for a new game object in the specified position.
@@ -26,10 +32,11 @@ public abstract class GameObject {
      * @param y starting y position.
      * @param id object type identifier.
      */
-    public GameObject(int x, int  y, ID id) {
+    public GameObject(int x, int  y, ID id, SpriteSheet ss) {
         this.x = x;
         this.y = y;
         this.id = id;
+        this.ss = ss;
     }
 
     // Methods every object has in common
@@ -75,6 +82,10 @@ public abstract class GameObject {
         return id;
     }
 
+    public int getLayer() {
+        return layer;
+    }
+
     // -------- Setters --------
 
     public void setX(int x) {
@@ -95,6 +106,10 @@ public abstract class GameObject {
 
     public void setId(ID id) {
         this.id = id;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
     }
     
 }
