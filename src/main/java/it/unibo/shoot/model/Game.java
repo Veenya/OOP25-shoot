@@ -11,6 +11,7 @@ import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
 import it.unibo.shoot.model.block.Block;
 import it.unibo.shoot.model.box.Box; //TODO remove
 
+
 /**
  * Main game class: handles window, game loop, rendering and level loading.
  * 
@@ -139,7 +140,7 @@ public class Game extends Canvas implements Runnable {
 
                 if (blue == 255) {
                     //TODO: player
-                    //handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
+                    //handler.addObject(new Player(xx*32, yy*32, ID.Player));
                     //TODO: change, this i sonly a test
                     handler.addObject(new Box(xx*32, yy*32, ID.Box));
                 }

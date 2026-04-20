@@ -19,11 +19,25 @@ public class PlayerModel {
         this.health = maxHealth;
     }
 
-    // Metodo per muovere il player (verrà chiamato dal Controller)
-    public void move(double dx, double dy) {
-        this.x += dx * speed;
-        this.y += dy * speed;
-    }
+
+
+private float velX = 0, velY = 0;
+
+public void setVelocity(float dx, float dy) {
+    // Calcoliamo la velocità finale (direzione * velocità base)
+    this.velX = dx * (float)speed;
+    this.velY = dy * (float)speed;
+}
+
+public void updatePosition() {
+    // Qui applichiamo la velocità alla posizione fisica
+    this.x += velX;
+    this.y += velY;
+}
+
+// Aggiungi i getter per Vera
+public float getVelX() { return velX; }
+public float getVelY() { return velY; }
 
     // Restituisce il rettangolo per le collisioni (per Leroy)
     public Rectangle getHitbox() {
