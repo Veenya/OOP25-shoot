@@ -191,7 +191,7 @@ public class Game extends Canvas implements Runnable {
 
                 if (blue == 255) {
                     //TODO: player
-                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, tile_ss));
+                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, tile_ss, handler));
                     //TODO: change, this i sonly a test
                   
                 }
