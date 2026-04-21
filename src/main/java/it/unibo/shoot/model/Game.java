@@ -53,9 +53,8 @@ public class Game extends Canvas implements Runnable {
      * Initializes window, handler, image loader. 
      */
     public Game() {
-    // 1. Prepara i dati (Handler e Camera)
-    handler = new Handler();
-    camera = new Camera(0, 0);
+        new Window(width, height, title, this);
+        
 
     // 2. Carica le immagini
     BufferedImageLoader loader = new BufferedImageLoader();
@@ -68,8 +67,14 @@ public class Game extends Canvas implements Runnable {
     // 3. Crea il mondo
     loadLevel(level);
 
-    // 4. Crea la finestra
-    new Window(width, height, title, this);
+        tile_ss = new SpriteSheet("/tiles/tileset.png");
+        floor = tile_ss.grabImage(0, 0);
+        block = tile_ss.grabImage(1, 0);
+        //TODO other spritesheets
+
+        loadLevel(level);
+        start();
+    }
 
     // 5. SOLO ORA puoi partire!
     start(); 
@@ -191,9 +196,9 @@ public class Game extends Canvas implements Runnable {
 
                 if (blue == 255) {
                     //TODO: player
-                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, tile_ss));
+                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, tile_ss, handler));
                     //TODO: change, this i sonly a test
-                   
+                  
                 }
 
                 if (green == 255) {
