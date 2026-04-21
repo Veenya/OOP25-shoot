@@ -53,32 +53,28 @@ public class Game extends Canvas implements Runnable {
      * Initializes window, handler, image loader. 
      */
     public Game() {
-        new Window(width, height, title, this);
-        
+        // 1. Inizializza Handler e Camera (fondamentali per caricare il livello)
+        handler = new Handler();
+        camera = new Camera(0, 0);
 
-    // 2. Carica le immagini
-    BufferedImageLoader loader = new BufferedImageLoader();
-    level = loader.loadImage("/maps/map1.png");
-    tile_ss = new SpriteSheet("/tiles/tileset.png");
-    
-    floor = tile_ss.grabImage(0, 0);
-    block = tile_ss.grabImage(1, 0);
-
-    // 3. Crea il mondo
-    loadLevel(level);
-
+        // 2. Carica le immagini
+        BufferedImageLoader loader = new BufferedImageLoader();
+        level = loader.loadImage("/maps/map1.png");
         tile_ss = new SpriteSheet("/tiles/tileset.png");
+        
         floor = tile_ss.grabImage(0, 0);
         block = tile_ss.grabImage(1, 0);
-        //TODO other spritesheets
 
+        // 3. Crea il mondo (ora che handler e tile_ss sono pronti)
         loadLevel(level);
+
+        // 4. Crea la finestra
+        new Window(width, height, title, this);
+
+        // 5. SOLO ORA puoi partire!
         start();
     }
-
-    // 5. SOLO ORA puoi partire!
-    start(); 
-}
+    // CANCELLA ogni altro start(); o parentesi che trovi tra qui e il metodo run()
 
     // Notch (Markus Persson) made this game loop
     // TODO: this is wrong, fix it. Also make better javadoc.
