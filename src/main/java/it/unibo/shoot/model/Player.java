@@ -16,7 +16,10 @@ public class Player extends GameObject {
     private PlayerView view;
     private PlayerController controller;
 
-    public Player(int x, int y, ID id, Canvas canvas, SpriteSheet ss) {
+    private Handler handler;
+    //private GameObject gameObject;
+
+    public Player(int x, int y, ID id, Canvas canvas, SpriteSheet ss, Handler handler) {
         super(x, y, id, ss); // Passiamo i dati al costruttore di Vera
         
         // Inizializziamo il tuo MVC
@@ -24,6 +27,8 @@ public class Player extends GameObject {
         this.model = new PlayerModel(x, y, 5.0, 100); 
         this.view = new PlayerView(model);
         this.controller = new PlayerController(model);
+
+        this.handler = handler;
 
         this.layer = Constants.PLAYER_LAYER;
 
@@ -34,9 +39,11 @@ public class Player extends GameObject {
 
 @Override
 public void tick() {
+
+
     // 1. Il controller legge i tasti e imposta la velocità nel Model
     controller.update(); 
-    
+
     // 2. Il model aggiorna la sua posizione interna
     model.updatePosition();
     
@@ -46,6 +53,42 @@ public void tick() {
     this.y = (int) model.getY();
     this.velX = model.getVelX();
     this.velY = model.getVelY();
+
+    collision();
+}
+/* 
+public void collision(){
+    for(int i = 0; i<handler.object.size(); i++) {
+        GameObject tempObject = handler.object.get(i);
+        if (tempObject.getId() == ID.Block){
+            if (getBounds().intersects(tempObject.getBounds())){
+                x+=velX * -1;
+                y += velY * -1;
+            }
+        }
+
+    }
+}
+*/
+
+public void collision() {
+    for (int i = 0; i < handler.object.size(); i++) {
+        GameObject tempObject = handler.object.get(i);
+        if (tempObject.getId() == ID.Block) {
+            if (getBounds().intersects(tempObject.getBounds())) {
+                // Push back
+                this.x -= velX;
+                this.y -= velY;
+
+                // Sync back to model!
+                model.setX(this.x);
+                model.setY(this.y);
+
+                // Stop velocity
+                model.setVelocity(0, 0);
+            }
+        }
+    }
 }
 
     @Override

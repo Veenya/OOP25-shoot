@@ -29,6 +29,9 @@ public void setVelocity(float dx, float dy) {
     this.velY = dy * (float)speed;
 }
 
+public void setX(double x) { this.x = x; }
+public void setY(double y) { this.y = y; }
+
 public void updatePosition() {
     // Qui applichiamo la velocità alla posizione fisica
     this.x += velX;
