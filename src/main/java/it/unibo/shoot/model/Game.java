@@ -8,82 +8,60 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
-import it.unibo.shoot.loader.*;  //TODO: maybe it's better to specify the file?
+import it.unibo.shoot.loader.*;  
 import it.unibo.shoot.model.block.Block;
 import it.unibo.shoot.view.Camera;
 import it.unibo.shoot.util.Constants;
 
-
-/**
- * Main game class: handles window, game loop, rendering and level loading.
- * 
- * Uses a fixed 60 ticks per second to update the loop.
- */
 public class Game extends Canvas implements Runnable {
 
-    //private static final long serialVersionUID = 1L;
     private boolean isRunning = false;
     private Thread thread;
     private Handler handler;
     private Camera camera;
+    
+    // Variabili di classe (visibili a tutti i metodi)
     private SpriteSheet tile_ss;
-    //TODO: other spritesheets
-    //private SpriteSheet player_ss;
-    //private Spritesheet enemy_ss;
+    private SpriteSheet player_ss;
 
     private BufferedImage level = null;
-    //private BufferedImage tile_sheet = null;
     private BufferedImage floor = null;
     private BufferedImage block = null;
-    //private BufferedImage player_sheet = null;
-    //private BufferedImage enemy_sheet = null;
-    // TODO other sheets if needed...
-
-    
 
     int width = Constants.SCREEN_WIDTH;
     int height = Constants.SCREEN_HEIGHT;
     String title = Constants.TITLE;
-    
 
-
-    //TODO: da finire
-    /**
-     * Constructof of Game object.
-     * Initializes window, handler, image loader. 
-     */
     public Game() {
-        // 1. Inizializza Handler e Camera (fondamentali per caricare il livello)
+        // 1. Inizializza Handler e Camera
         handler = new Handler();
         camera = new Camera(0, 0);
 
-        // 2. Carica le immagini
-        BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/maps/map1.png");
-        tile_ss = new SpriteSheet("/tiles/tileset.png");
-        
-        floor = tile_ss.grabImage(0, 0);
-        block = tile_ss.grabImage(1, 0);
+        // 2. Carica Immagini e SpriteSheets
+        // 2. Carica Immagini e SpriteSheets
+BufferedImageLoader loader = new BufferedImageLoader();
+level = loader.loadImage("/maps/map1.png");
 
-        // 3. Crea il mondo (ora che handler e tile_ss sono pronti)
+// CORREZIONE QUI: Usa il loader per trasformare il testo in un'immagine vera e propria
+tile_ss = new SpriteSheet(loader.loadImage("/tiles/tileset.png"));
+player_ss = new SpriteSheet(loader.loadImage("/sprites/player.png"));
+        
+       floor = tile_ss.grabImage(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+        block = tile_ss.grabImage(1, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+
+        // 3. Crea il mondo
         loadLevel(level);
 
         // 4. Crea la finestra
         new Window(width, height, title, this);
 
-        // 5. SOLO ORA puoi partire!
+        // 5. Avvia il gioco
         start();
     }
-    // CANCELLA ogni altro start(); o parentesi che trovi tra qui e il metodo run()
 
-    // Notch (Markus Persson) made this game loop
-    // TODO: this is wrong, fix it. Also make better javadoc.
-    /**
-     * Updates window 60 times per second, updating the render method a couple thousands times per second.
-    */
     @Override
     public void run() {
-        this.requestFocus();// TODO: why
+        this.requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -96,7 +74,6 @@ public class Game extends Canvas implements Runnable {
             lastTime = now;
             while (delta >= 1) {
                 tick();
-                //updates++;
                 delta --;
             }
             render();
@@ -105,15 +82,11 @@ public class Game extends Canvas implements Runnable {
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 frames = 0;
-                //updates = 0;
             }
         }
         stop();
     }
 
-    /**
-     * Updates everything in the game. It runs 60 times per second.
-     */
     public void tick() {
         for (int i = 0; i<handler.object.size(); i++) {
             if (handler.object.get(i).getId() == ID.Player) {
@@ -123,65 +96,41 @@ public class Game extends Canvas implements Runnable {
         handler.tick();
     }
 
-    /**
-     * Renders everything in the game using graphics.
-     * It runs a couple thousand times per second.
-     */
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
-            // Preloads (3) frames behind the actual window
             this.createBufferStrategy(3);
             return;
         }
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
-        ////////////////
-        // Background
+        
         g.setColor(Color.pink);
         g.fillRect(0, 0, width, height);
         
         g2d.translate(-camera.getX(), -camera.getY());
 
-        //TODO change numbers
         for (int xx = 0; xx < 30*72; xx+=32) {
             for (int yy=0; yy < 30*72; yy+=32) {
                 g.drawImage(floor, xx, yy, null);
             }
         }
         
-        /*
-        NOTE: it is important to put handler after the background
-        because graphics is placed top to bottom
-        */
-       
         handler.render(g);
 
         g2d.translate(camera.getX(), camera.getY());
 
-        //TODO: HUD coordinate fisse sullo schermo
-        //renderHUD(g);
-
-        /////////////
         g.dispose();
         bs.show();
     }
 
-    /**
-     * Loads level from image.
-     * @param image that will be displayed as level map.
-     */
     private void loadLevel(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
 
-        System.out.println(w);
-
-        // TODO: use global variables
         for (int xx = 0; xx < w; xx++) {
             for (int yy = 0; yy < h; yy++) {
                 int pixel = image.getRGB(xx, yy);
-                // TODO: understand this
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
@@ -191,27 +140,19 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (blue == 255) {
-                    //TODO: player
-                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, tile_ss, handler));
-                    //TODO: change, this i sonly a test
-                  
-                }
-
-                if (green == 255) {
-                    //TODO ...
+                    // Creiamo il Player passando player_ss
+                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, player_ss, handler));
                 }
             }
         }
     }
 
-    /** Starts thread */
     private void start() {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
     }
 
-    /** Stops thread */
     private void stop() {
         isRunning = false;
         try {
@@ -221,10 +162,6 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    /**
-     * Creates new instance of Game calling the constructor.
-     * @param args
-     */
     public static void main(String args[]) {
         new Game();
     }
