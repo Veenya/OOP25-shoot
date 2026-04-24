@@ -1,4 +1,6 @@
 // Questo file DEVE chiamarsi Upgrade.java
+package it.unibo.shoot.model;
+
 import java.util.*;
 
 public abstract class Upgrade {

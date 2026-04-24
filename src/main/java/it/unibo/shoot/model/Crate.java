@@ -1,4 +1,8 @@
 
+package it.unibo.shoot.model;
+
+import it.unibo.shoot.loader.SpriteSheet;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -8,7 +12,7 @@ public class Crate extends GameObject{
 
     public Crate(int x, int y, ID id, SpriteSheet ss) {
         super(x, y, id, ss);
-        crate_image = ss.grabImage();
+        crate_image = ss.grabImage(0, 0);
 
     }
 

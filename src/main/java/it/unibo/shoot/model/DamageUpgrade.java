@@ -1,3 +1,5 @@
+package it.unibo.shoot.model;
+
 // 3. PROIETTILI AFFILATI (Danno)
 public class DamageUpgrade extends Upgrade {
 
@@ -5,6 +7,7 @@ public class DamageUpgrade extends Upgrade {
          super("Proiettili Affilati", "+15% Danno inflitto", 5); }
 
     public void apply(Player p) {
-         p.setDamageMultiplier(p.getDamageMultiplier() * 1.15); 
+          //TODO
+         //p.setDamageMultiplier(p.getDamageMultiplier() * 1.15); 
          this.currentLevel++; }
 }

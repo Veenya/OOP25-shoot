@@ -1,3 +1,5 @@
+package it.unibo.shoot.model;
+
 // 1. SCARPE RAPIDE 
 public class SpeedUpgrade extends Upgrade {
 
@@ -6,8 +8,8 @@ public class SpeedUpgrade extends Upgrade {
 
      
     public void apply(Player p) { 
-        
-        p.setSpeed(p.getSpeed() * 1.10); 
+        //TODO
+        //p.setSpeed(p.getSpeed() * 1.10); 
         this.currentLevel++; 
     
     }

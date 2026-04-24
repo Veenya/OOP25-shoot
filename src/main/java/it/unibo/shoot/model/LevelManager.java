@@ -1,3 +1,5 @@
+package it.unibo.shoot.model;
+
 // Questo file DEVE chiamarsi LevelManager.java
 import java.util.*;
 
@@ -18,7 +20,7 @@ public class LevelManager {
         availableUpgrades.add(new HealthUpgrade());
         availableUpgrades.add(new DamageUpgrade());
         availableUpgrades.add(new MagnetUpgrade());
-        availableUpgrades.add(new AttackSpeedUpgrade());
+        //availableUpgrades.add(new AttackSpeedUpgrade());
         availableUpgrades.add(new EvasionUpgrade());
     }
 
