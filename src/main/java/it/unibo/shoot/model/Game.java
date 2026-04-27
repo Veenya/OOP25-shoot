@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import it.unibo.shoot.view.Window;
+import it.unibo.shoot.controller.MouseInput;
 import it.unibo.shoot.loader.*;  
 import it.unibo.shoot.model.block.Block;
 import it.unibo.shoot.view.Camera;
@@ -54,7 +55,7 @@ player_ss = new SpriteSheet(loader.loadImage("/sprites/player.png"));
 
         // 4. Crea la finestra
         new Window(width, height, title, this);
-
+        this.addMouseListener(new MouseInput(handler, camera));
         // 5. Avvia il gioco
         start();
     }
