@@ -57,6 +57,15 @@ public class PlayerModel {
         }
     }
 
+    public void takeDamage(int amount){
+        this.health -= amount;
+        if(health <= 0){
+            health = 0;
+            //finisce la partita
+        }
+    }
+
+
     // Setters e Getters
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }

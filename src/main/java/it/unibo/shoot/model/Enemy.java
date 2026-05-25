@@ -18,6 +18,8 @@ public class Enemy extends GameObject{
     protected Direction dir = Direction.DOWN;
     protected int frame = 0;
     protected int frameDelay = 0;
+    protected int COL_OFFSET = 0; // ogni sottoclasse può sovrascrivere
+    protected int damage = 10;
 
     public Enemy (int x, int y, ID id,SpriteSheet ss, Handler handler, float speed){
         super(x, y, id, ss);
@@ -48,6 +50,9 @@ public class Enemy extends GameObject{
 
             if(tempObject.getId() == ID.Player) {                               //trova il player
                 player = tempObject;
+                if(getBounds().intersects(tempObject.getBounds())) {
+                    ((Player) tempObject).takeDamage(damage);
+                }
             }
         
             if(tempObject.getId() == ID.Block) {
@@ -82,10 +87,37 @@ public class Enemy extends GameObject{
                 velY = (diffY / distance) * speed;
             }
         }
+
+        frameDelay++;
+        if (frameDelay >= 10) {
+            frameDelay = 0;
+            frame++;
+            if (frame >= 3) {
+                frame = 0;
+            }
+        }
+
     }
 
     public void render(Graphics g) {
-        g.drawImage(enemy_ss, x, y, null);                             //prende lo spritesheet del nemico
+        int row;
+        switch (dir) {
+            case DOWN:
+                row = 0;
+                break;
+            case LEFT:  
+                row = 1;
+                break;
+            case RIGHT:
+                row = 2;
+                break;
+            default:
+                row = 3;
+                break;
+        };
+
+        enemy_ss = ss.grabImage(COL_OFFSET + frame, row, 16, 16);
+        g.drawImage(enemy_ss, x, y, null);     //prende lo spritesheet del nemico
     }
 
     public Rectangle getBounds() {                                              //hitbox del nemico

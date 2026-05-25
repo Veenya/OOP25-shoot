@@ -61,6 +61,11 @@ public class Player extends GameObject {
         }
     }
 
+    public void takeDamage(int amount){
+        model.takeDamage(amount);
+        //mancano gli i-frame dopo aver subito danno (prende danno ogni tick e viene shottato) 
+    }
+
     @Override
     public void render(Graphics g) {
         view.render((Graphics2D) g);

@@ -1,17 +1,16 @@
 package it.unibo.shoot.model;
-import java.awt.Graphics;
 
 import it.unibo.shoot.loader.SpriteSheet;
 
 public class Enemy3 extends Enemy{
 
-    private static final int COL_OFFSET = 6; // gli sprite di Enemy3 partono dalla colonna 6
-
     public Enemy3(int x, int y, ID id, SpriteSheet ss, Handler handler) {
         super(x, y, id, ss, handler, 1.0f);
+        this.COL_OFFSET = 6;
         this.hp = 300;
+        this.damage = 50;
     }
-
+/*
     @Override
     public void tick(){
         super.tick();
@@ -46,5 +45,5 @@ public class Enemy3 extends Enemy{
 
         enemy_ss = ss.grabImage(COL_OFFSET + frame, row, 16, 16);
         g.drawImage(enemy_ss, (int)x, (int)y, null);
-    }
+    }*/
 }
