@@ -121,11 +121,11 @@ public class Enemy extends GameObject{
     }
 
     public Rectangle getBounds() {                                              //hitbox del nemico
-        return new Rectangle(x, y, 16, 16);
+        return new Rectangle(x, y, 32, 32);
     }
 
     public Rectangle getBoundsBig() {                                           //"area" di collisione del nemico per non finire nel muro
-        return new Rectangle(x-16, y-16, 32, 32);
+        return new Rectangle(x-16, y-16, 64, 64);
     }
 
 }
