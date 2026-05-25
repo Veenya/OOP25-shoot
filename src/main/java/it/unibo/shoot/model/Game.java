@@ -20,10 +20,12 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Handler handler;
     private Camera camera;
+    private Spawner spawner;
     
     // Variabili di classe (visibili a tutti i metodi)
     private SpriteSheet tile_ss;
     private SpriteSheet player_ss;
+    private SpriteSheet enemy_ss;
 
     private BufferedImage level = null;
     private BufferedImage floor = null;
@@ -46,12 +48,14 @@ level = loader.loadImage("/maps/map1.png");
 // CORREZIONE QUI: Usa il loader per trasformare il testo in un'immagine vera e propria
 tile_ss = new SpriteSheet(loader.loadImage("/tiles/tileset.png"));
 player_ss = new SpriteSheet(loader.loadImage("/sprites/player.png"));
+enemy_ss = new SpriteSheet(loader.loadImage("/sprites/enemies.png"));
         
        floor = tile_ss.grabImage(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
         block = tile_ss.grabImage(1, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
         // 3. Crea il mondo
         loadLevel(level);
+        //spawner = new Spawner(handler, enemy_ss, player, level);
 
         // 4. Crea la finestra
         new Window(width, height, title, this);
@@ -143,6 +147,10 @@ player_ss = new SpriteSheet(loader.loadImage("/sprites/player.png"));
                 if (blue == 255) {
                     // Creiamo il Player passando player_ss
                     handler.addObject(new Player(xx*32, yy*32, ID.Player, this, player_ss, handler));
+                }
+
+                if (green == 255) {                                 //creo i nemici base
+                    handler.addObject(new Enemy1(xx * Constants.TILE_SIZE, yy * Constants.TILE_SIZE, ID.Enemy, enemy_ss, handler));
                 }
             }
         }
