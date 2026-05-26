@@ -7,6 +7,8 @@ public class PlayerModel {
     private int health;
     private int maxHealth;
     
+   
+
     private float velX = 0, velY = 0;
     
     // Variabili per l'animazione
@@ -70,6 +72,7 @@ public class PlayerModel {
     public double getX() { return x; }
     public double getY() { return y; }
     public int getHealth() { return health; }
+     public int getMaxHealth() { return maxHealth;}
 
     public Rectangle getHitbox() {
         return new Rectangle((int)x, (int)y, width, height);
