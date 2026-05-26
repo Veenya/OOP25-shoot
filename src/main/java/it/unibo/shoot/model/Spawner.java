@@ -62,14 +62,23 @@ public class Spawner {
         int mapX = x / Constants.TILE_SIZE;
         int mapY = y / Constants.TILE_SIZE;
 
-        if (mapX < 0 || mapY < 0 || mapX >= map.getWidth() || mapY >= map.getHeight()) {
-            return true;
-        }   
+        for(int dX = -1; dX <= 1; dX++) {
+            for(int dY = -1; dY <= 1; dY++){
+                int checkX = mapX + dX;
+                int checkY = mapY + dY;
 
-    int pixel = map.getRGB(mapX, mapY);
-        int red   = (pixel >> 16) & 0xff;
+                if (checkX < 0 || checkY < 0 || checkX >= map.getWidth() || checkY >= map.getHeight()) {
+                    return true;
+                }
 
-    return red == 255;
+                int pixel = map.getRGB(checkX, checkY);
+                int red   = (pixel >> 16) & 0xff;
+                if(red == 255){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

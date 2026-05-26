@@ -102,7 +102,7 @@ public class Enemy extends GameObject{
     public void render(Graphics g) {
         int row;
         switch (dir) {
-            case DOWN:
+            case UP:
                 row = 0;
                 break;
             case LEFT:  
@@ -117,7 +117,7 @@ public class Enemy extends GameObject{
         };
 
         enemy_ss = ss.grabImage(COL_OFFSET + frame, row, 16, 16);
-        g.drawImage(enemy_ss, x, y, null);     //prende lo spritesheet del nemico
+        g.drawImage(enemy_ss, x, y, 32, 32, null);     //prende lo spritesheet del nemico
     }
 
     public Rectangle getBounds() {                                              //hitbox del nemico
@@ -125,7 +125,7 @@ public class Enemy extends GameObject{
     }
 
     public Rectangle getBoundsBig() {                                           //"area" di collisione del nemico per non finire nel muro
-        return new Rectangle(x-16, y-16, 64, 64);
+        return new Rectangle(x-4, y-4, 40, 40);
     }
 
 }
