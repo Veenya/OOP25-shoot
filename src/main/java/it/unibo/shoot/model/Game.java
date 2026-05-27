@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private Camera camera;
     private Spawner spawner;
+    private Player player;
+    private LevelManager levelManager;
     
     // Variabili di classe (visibili a tutti i metodi)
     private SpriteSheet tile_ss;
@@ -56,8 +58,11 @@ enemy_ss = new SpriteSheet(loader.loadImage("/sprites/enemies.png"));
         block = tile_ss.grabImage(1, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
         // 3. Crea il mondo
+        levelManager = new LevelManager(null);
         loadLevel(level);
-        spawner = new Spawner(handler, enemy_ss, level);
+        levelManager.setPlayer(player);
+        //LevelManager levelManager = new LevelManager(player);
+        spawner = new Spawner(handler, enemy_ss, level, levelManager);
 
         // 4. Crea la finestra
         new Window(width, height, title, this);
@@ -164,11 +169,13 @@ enemy_ss = new SpriteSheet(loader.loadImage("/sprites/enemies.png"));
 
                 if (blue == 255) {
                     // Creiamo il Player passando player_ss
-                    handler.addObject(new Player(xx*32, yy*32, ID.Player, this, player_ss, handler));
+                    player = new Player(xx*32, yy*32, ID.Player, this, player_ss, handler);
+                    handler.addObject(player);
+                    //handler.addObject(new Player(xx*32, yy*32, ID.Player, this, player_ss, handler));
                 }
 
                 if (green == 255) {                                 //creo i nemici base
-                    handler.addObject(new Enemy1(xx * Constants.TILE_SIZE, yy * Constants.TILE_SIZE, ID.Enemy, enemy_ss, handler));
+                    handler.addObject(new Enemy1(xx * Constants.TILE_SIZE, yy * Constants.TILE_SIZE, ID.Enemy, enemy_ss, handler, levelManager));
                 }
             }
         }

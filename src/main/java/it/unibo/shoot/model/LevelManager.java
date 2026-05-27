@@ -52,4 +52,8 @@ public class LevelManager {
         Collections.shuffle(eligible);
         return eligible.subList(0, Math.min(count, eligible.size()));
     }
+
+    public void setPlayer(Player player){
+        this.player = player;
+    }
 }

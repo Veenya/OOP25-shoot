@@ -12,11 +12,13 @@ public class Spawner {
     private Random r = new Random();
     private int timer = 0;
     private BufferedImage map;
+    private LevelManager levelManager;
 
-    public Spawner(Handler handler, SpriteSheet ss, BufferedImage map){
+    public Spawner(Handler handler, SpriteSheet ss, BufferedImage map, LevelManager levelManager){
         this.handler = handler;
         this.ss = ss;
         this.map = map;
+        this.levelManager = levelManager;
     }
 
     public void tick() {
@@ -45,15 +47,15 @@ public class Spawner {
         int enemyType = r.nextInt(3);                                       //spawna uno dei 3 nemici a caso
         switch (enemyType) {
             case 0:
-                handler.addObject(new Enemy1(x, y, ID.Enemy, ss, handler));
+                handler.addObject(new Enemy1(x, y, ID.Enemy, ss, handler, levelManager));
                 break;
         
             case 1:
-                handler.addObject(new Enemy2(x, y, ID.Enemy, ss, handler));
+                handler.addObject(new Enemy2(x, y, ID.Enemy, ss, handler, levelManager));
                 break;
             
             case 2:
-                handler.addObject(new Enemy3(x, y, ID.Enemy, ss, handler));
+                handler.addObject(new Enemy3(x, y, ID.Enemy, ss, handler, levelManager));
                 break;
         }
     }

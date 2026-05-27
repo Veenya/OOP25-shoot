@@ -7,7 +7,8 @@ import it.unibo.shoot.loader.SpriteSheet;
 
 public class Enemy extends GameObject{
 
-    private Handler handler;                                         
+    private Handler handler;       
+    private LevelManager levelManager;
     int choose = 0;                                         //scelta del movimento nemico                                
     protected float speed;                                  //velocita nemico
     protected int hp;                                       //vita del nemico
@@ -20,12 +21,14 @@ public class Enemy extends GameObject{
     protected int frameDelay = 0;
     protected int COL_OFFSET = 0; // ogni sottoclasse può sovrascrivere
     protected int damage = 10;
+    protected int xpValue = 10;
 
-    public Enemy (int x, int y, ID id,SpriteSheet ss, Handler handler, float speed){
+    public Enemy (int x, int y, ID id,SpriteSheet ss, Handler handler, float speed, LevelManager levelManager){
         super(x, y, id, ss);
         this.handler = handler;
         this.ss = ss;
         this.speed = speed;
+        this.levelManager = levelManager;
     }
 
 
@@ -45,18 +48,18 @@ public class Enemy extends GameObject{
             else dir = Direction.UP;
         }
 
-        for(int i = 0; i < handler.object.size(); i++) {
+        for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
 
-            if(tempObject.getId() == ID.Player) {                               //trova il player
+            if (tempObject.getId() == ID.Player) {                               //trova il player
                 player = tempObject;
                 if(getBounds().intersects(tempObject.getBounds())) {
                     ((Player) tempObject).takeDamage(damage);
                 }
             }
         
-            if(tempObject.getId() == ID.Block) {
-                if(getBoundsBig().intersects(tempObject.getBounds())){          //se toccano un muro vengono rispediti indietro (non si "infila" nel muro)
+            if (tempObject.getId() == ID.Block) {
+                if (getBoundsBig().intersects(tempObject.getBounds())){          //se toccano un muro vengono rispediti indietro (non si "infila" nel muro)
                     x += (velX*3) * -1;
                     y += (velY*3) * -1;
                     velX *= -1;
@@ -66,23 +69,28 @@ public class Enemy extends GameObject{
             }
 
             if (tempObject.getId() == ID.Bullet) {                              //controlla se il nemico è colpito da un proiettile
-                if(getBounds().intersects(tempObject.getBounds())){
+                if (getBounds().intersects(tempObject.getBounds())){
                     hp -= 50;
                     handler.removeObject(tempObject);
                 }
             }
         }
 
-            if(hp <= 0) handler.removeObject(this);                             //rimuove il nemico eliminato
+            if (hp <= 0){
+                if(levelManager != null){
+                    levelManager.addXP(xpValue);
+                }
+                 handler.removeObject(this);                                    //rimuove il nemico eliminato
+            }
             
 
-        if(player != null && !collision) {                                      //se non collide con un muro, si avvicina al player
+        if (player != null && !collision) {                                      //se non collide con un muro, si avvicina al player
             float diffX = player.getX() - x;
             float diffY = player.getY() - y;
 
             float distance = (float)Math.sqrt((diffX * diffX) + (diffY * diffY));
 
-            if(distance !=0) {
+            if (distance !=0) {
                 velX = (diffX / distance) * speed;
                 velY = (diffY / distance) * speed;
             }
