@@ -1,7 +1,7 @@
 package it.unibo.shoot.view;
 
-import it.unibo.shoot.model.GameObject;
 import it.unibo.shoot.util.Constants;
+import it.unibo.shoot.GameObjects.GameObject;
 
 
 
