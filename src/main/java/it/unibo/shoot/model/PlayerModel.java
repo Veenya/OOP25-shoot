@@ -9,7 +9,10 @@ public class PlayerModel {
     private boolean isDead = false;
    
     
-   
+    // --- NEW UPGRADE STATS FIELDS ---
+    private double damageMultiplier = 1.0; // Base damage is 100%
+    private double dodgeChance = 0.0;      // Base dodge chance is 0%
+    private double pickupRange = 1.0;      // Base multiplier for XP magnet range
 
     private float velX = 0, velY = 0;
     
@@ -33,6 +36,51 @@ public class PlayerModel {
         this.maxHealth = maxHealth;
         this.health = maxHealth;
     }
+
+    // --- NEW UPGRADE GETTERS & SETTERS ---
+    public double getSpeed() { 
+        return speed; 
+    }
+    
+    public void setSpeed(double speed) { 
+        this.speed = speed; 
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public void heal(int amount) {
+        this.health += amount;
+        if (this.health > this.maxHealth) {
+            this.health = this.maxHealth; // Clamp to max health
+        }
+    }
+
+    public double getDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    public void setDamageMultiplier(double damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
+    }
+
+    public double getDodgeChance() {
+        return dodgeChance;
+    }
+
+    public void setDodgeChance(double dodgeChance) {
+        this.dodgeChance = dodgeChance;
+    }
+
+    public double getPickupRange() {
+        return pickupRange;
+    }
+
+    public void setPickupRange(double pickupRange) {
+        this.pickupRange = pickupRange;
+    }
+
 
     public void setVelocity(float dx, float dy) {
         this.velX = dx * (float)speed;
@@ -72,6 +120,12 @@ public class PlayerModel {
         this.isDead = true; // <--- FONDAMENTALE!
         System.out.println("GAME OVER! Vita: 0");
     }
+
+    // Incorporate Dodge Mechanism before checking damage
+        if (Math.random() < this.dodgeChance) {
+            System.out.println("Schivato! Nessun danno subito.");
+            return; 
+        }
 
         // 2. Controllo del tempo: chiediamo a Java l'ora esatta in millisecondi
         long currentTime = System.currentTimeMillis();
@@ -115,5 +169,14 @@ public class PlayerModel {
     }
     public boolean isDead() {
         return this.isDead;
+    }
+
+    public void setHealth(int health) {
+        this.health = health ; 
+    }
+
+    public int currentXP() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'currentXP'");
     }
 }

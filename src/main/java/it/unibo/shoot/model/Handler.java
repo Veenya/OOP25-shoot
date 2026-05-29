@@ -1,5 +1,6 @@
 package it.unibo.shoot.model;
 
+import it.unibo.shoot.GameObjects.GameObject;
 import java.awt.Graphics;
 // CANCELLIAMO LinkedList
 // import java.util.LinkedList; 

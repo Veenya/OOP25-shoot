@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import it.unibo.shoot.view.PlayerView;
 import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.SpriteSheet;
+import it.unibo.shoot.GameObjects.GameObject;
 
 public class Player extends GameObject {
 
@@ -14,14 +15,16 @@ public class Player extends GameObject {
     private PlayerView view;
     private PlayerController controller;
     private Handler handler;
+    Game game;
 
-    public Player(int x, int y, ID id, Canvas canvas, SpriteSheet ss, Handler handler) {
+    public Player(int x, int y, ID id, Canvas canvas, SpriteSheet ss, Handler handler,Game game) {
         super(x, y, id, ss);
         this.handler = handler;
         
         this.model = new PlayerModel(x, y, 5.0, 100); 
         this.view = new PlayerView(model, ss); 
         this.controller = new PlayerController(model, handler);
+        this.game=game;
 
         canvas.addKeyListener(controller);
     }
@@ -62,6 +65,17 @@ public class Player extends GameObject {
                     model.setVelocity(0, 0);
                 }
             }
+
+
+            if (tempObject.getId() == ID.Crate) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    game.ammo += 20;
+                    handler.removeObject(tempObject);
+                    i--;
+                }
+            }
+
+
             if (tempObject.getId() == ID.Enemy) {
     if (getBounds().intersects(tempObject.getBounds())) {
         model.takeDamage(1); 
@@ -85,5 +99,57 @@ public class Player extends GameObject {
     public Rectangle getBounds() {
         return model.getHitbox();
     }
-    
+    public double getSpeed() {
+        return model.getSpeed();
+    }
+
+    public void setSpeed(double speed) {
+        model.setSpeed(speed);
+    }
+
+    public int getMaxHealth() {
+        return model.getMaxHealth();
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        model.setMaxHealth(maxHealth);
+    }
+    public void setHealth(int Health) {
+        model.setHealth(Health);
+    }
+
+
+    public void heal(int amount) {
+        model.heal(amount);
+    }
+
+    public double getDamageMultiplier() {
+        return model.getDamageMultiplier();
+    }
+
+    public void setDamageMultiplier(double damageMultiplier) {
+        model.setDamageMultiplier(damageMultiplier);
+    }
+
+    public double getDodgeChance() {
+        return model.getDodgeChance();
+    }
+
+    public void setDodgeChance(double dodgeChance) {
+        model.setDodgeChance(dodgeChance);
+    }
+
+    public double getPickupRange() {
+        return model.getPickupRange();
+    }
+
+    public void setPickupRange(double pickupRange) {
+        model.setPickupRange(pickupRange);
+    }
+    public int getHealth() {
+    return model.getHealth();
+    }
+    public int getExperience() {
+    return model.currentXP();
+    }
 }

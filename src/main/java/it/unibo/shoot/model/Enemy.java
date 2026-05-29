@@ -2,9 +2,10 @@ package it.unibo.shoot.model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
+import it.unibo.shoot.model.ID;
 import it.unibo.shoot.loader.SpriteSheet;
-
+import it.unibo.shoot.GameObjects.GameObject;
+import it.unibo.shoot.model.Handler;
 public class Enemy extends GameObject{
 
     private Handler handler;       
@@ -19,7 +20,7 @@ public class Enemy extends GameObject{
     protected Direction dir = Direction.DOWN;
     protected int frame = 0;
     protected int frameDelay = 0;
-    protected int COL_OFFSET = 0;
+    protected int COL_OFFSET = 0; // ogni sottoclasse può sovrascrivere
     protected int damage = 10;
     protected int xpValue = 10;
 
@@ -70,7 +71,7 @@ public class Enemy extends GameObject{
 
             if (tempObject.getId() == ID.Bullet) {                              //controlla se il nemico è colpito da un proiettile
                 if (getBounds().intersects(tempObject.getBounds())){
-                    hp -= 50;                                                   //riceve i danni
+                    hp -= 50;
                     handler.removeObject(tempObject);
                 }
             }
@@ -91,7 +92,7 @@ public class Enemy extends GameObject{
             float distance = (float)Math.sqrt((diffX * diffX) + (diffY * diffY));
 
             if (distance !=0) {
-                velX = (diffX / distance) * speed;                                //si avvicina verso il player a velocita costante
+                velX = (diffX / distance) * speed;
                 velY = (diffY / distance) * speed;
             }
         }
@@ -99,15 +100,15 @@ public class Enemy extends GameObject{
         frameDelay++;
         if (frameDelay >= 10) {
             frameDelay = 0;
-            frame++;                                                              //ogni 10 tick avanza di un frame
+            frame++;
             if (frame >= 3) {
-                frame = 0;                                                        //ritorna a frame 0 dopo aver eseguito completamente frame 2
+                frame = 0;
             }
         }
 
     }
 
-    public void render(Graphics g) {                                              //switch per cambiare il "verso" del nemico in base a dove guarda
+    public void render(Graphics g) {
         int row;
         switch (dir) {
             case UP:

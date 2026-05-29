@@ -9,5 +9,6 @@ public enum ID {
     Weapon(),
     Floor(),
     Experience(),
+    Crate(),
     Boss();
 }
