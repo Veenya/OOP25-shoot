@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.shoot.model.Bullet;
 import it.unibo.shoot.model.ID;
 import it.unibo.shoot.model.PlayerModel;
 import it.unibo.shoot.model.Handler;
