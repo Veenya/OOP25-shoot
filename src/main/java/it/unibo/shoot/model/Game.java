@@ -157,7 +157,7 @@ crate_tex = loader.loadImage("/object/crate.png");
                     int EXPbarY = 0;       // Posizione Y sullo schermo
                     // Calcola proporzionalmente i pixel rimanenti della vita attuale
                     int currentHPBarWidth = (int) (((double) hp / maxHp) * barWidth);
-                    int currentEXPBarWidth = (int) (((double) currentXP / 100) * barWidth);
+                    int currentEXPBarWidth = (int) (((double) currentXP / levelManager.getNextLevelXP()) * barWidth);
                     // 1. Sfondo Grigio Scuro / Rosso (Vita persa o mancante)
                     g.setColor(new Color(150, 0, 0));
                     g.fillRect(HPbarX, HPbarY, barWidth, barHeight);

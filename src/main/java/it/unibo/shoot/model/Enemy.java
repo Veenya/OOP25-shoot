@@ -11,8 +11,7 @@ import it.unibo.shoot.GameObjects.Bullet;
 public class Enemy extends GameObject{
 
     private Handler handler;       
-    private LevelManager levelManager;
-    int choose = 0;                                         //scelta del movimento nemico                                
+    private LevelManager levelManager;                       
     protected float speed;                                  //velocita nemico
     protected int hp;                                       //vita del nemico
     protected BufferedImage enemy_ss;
@@ -63,10 +62,24 @@ public class Enemy extends GameObject{
         
             if (tempObject.getId() == ID.Block) {
                 if (getBoundsBig().intersects(tempObject.getBounds())){          //se toccano un muro vengono rispediti indietro (non si "infila" nel muro)
-                    x += (velX*3) * -1;
-                    y += (velY*3) * -1;
-                    velX *= -1;
-                    velY *= -1;
+                    x -= velX;
+                    y -= velY;
+                    
+                    x += velX;
+                    if (getBoundsBig().intersects(tempObject.getBounds())) {
+                        x -= velX;
+                    }
+
+                    y += velY;
+                    if (getBoundsBig().intersects(tempObject.getBounds())) {
+                        y -= velY;
+                    }
+
+                    if (getBoundsBig().intersects(tempObject.getBounds())) {
+                        x += (Math.random() > 0.5 ? 1 : -1) *2;
+                        y += (Math.random() > 0.5 ? 1 : -1) *2;
+                    }
+                    
                     collision = true;
                 }
             }

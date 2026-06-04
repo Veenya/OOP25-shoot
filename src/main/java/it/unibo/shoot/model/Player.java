@@ -149,7 +149,7 @@ public class Player extends GameObject {
     public int getHealth() {
     return model.getHealth();
     }
-    public int getExperience() {
+    /*public int getExperience() {
     return model.currentXP();
-    }
+    }*/
 }
