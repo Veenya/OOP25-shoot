@@ -3,8 +3,10 @@ package it.unibo.shoot.GameObjects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 import it.unibo.shoot.loader.SpriteSheet;
-import it.unibo.shoot.model.*;
+import it.unibo.shoot.model.Handler;
+import it.unibo.shoot.model.ID;
 public class Bullet extends GameObject {
 
     private Handler handler;

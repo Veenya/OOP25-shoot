@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable {
     private BufferedImage level = null;
     private BufferedImage floor = null;
     private BufferedImage block = null;
-    private BufferedImage crate_tex = null;
+    private BufferedImage crate_image = null;
     public int ammo = 50 ;
     int width = Constants.SCREEN_WIDTH;
     int height = Constants.SCREEN_HEIGHT;
@@ -60,7 +60,7 @@ level = loader.loadImage("/maps/map1.png");
 tile_ss = new SpriteSheet(loader.loadImage("/tiles/tileset.png"));
 player_ss = new SpriteSheet(loader.loadImage("/sprites/player.png"));
 enemy_ss = new SpriteSheet(loader.loadImage("/sprites/enemies.png"));
-crate_tex = loader.loadImage("/object/crate.png");
+crate_image = loader.loadImage("/object/crate.png");
         
        floor = tile_ss.grabImage(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
         block = tile_ss.grabImage(1, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
@@ -71,7 +71,7 @@ crate_tex = loader.loadImage("/object/crate.png");
         levelManager.setPlayer(player);
         //LevelManager levelManager = new LevelManager(player);
         spawner = new Spawner(handler, enemy_ss, level, levelManager);
-        bossSpawner = new BossSpawner(handler, enemy_ss, crate_tex, levelManager);
+        bossSpawner = new BossSpawner(handler, enemy_ss, crate_image, levelManager);
 
 
         // 4. Crea la finestra
@@ -102,7 +102,7 @@ crate_tex = loader.loadImage("/object/crate.png");
     
     // 6. CRITICAL FIX: Re-instantiate the Spawner so it tracks the NEW levelManager and enemy configurations
     this.spawner = new Spawner(handler, enemy_ss, level, levelManager);
-    this.bossSpawner = new BossSpawner(handler, enemy_ss, crate_tex, levelManager);
+    this.bossSpawner = new BossSpawner(handler, enemy_ss, crate_image, levelManager);
     
     // 7. Reset the game state back to active game tracking
     Game.gameState = STATE.GAME;
@@ -411,7 +411,7 @@ crate_tex = loader.loadImage("/object/crate.png");
                 }
 
                 else if (red == 255 && blue == 255 && green == 0) {
-                    handler.addObject(new Crate(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Crate, crate_tex));
+                    handler.addObject(new Crate(xx*Constants.TILE_SIZE, yy*Constants.TILE_SIZE, ID.Crate, crate_image));
                 }
 
             }

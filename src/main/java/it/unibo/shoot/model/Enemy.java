@@ -9,7 +9,7 @@ import it.unibo.shoot.loader.SpriteSheet;
 
 public class Enemy extends GameObject{
 
-    private LevelManager levelManager;
+    final private LevelManager levelManager;
     protected Handler handler;
     protected float speed;                                  //velocita nemico
     protected int hp;                                       //vita del nemico
