@@ -98,8 +98,9 @@ public class UpgradeAndLevelUpTest {
 
     @Test
     public void testGetRandomUpgradesFiltersMaxed() {
-        List<Upgrade> initialOptions = levelManager.getRandomUpgrades(3);
-        assertFalse(initialOptions.isEmpty());
+        List<Upgrade> initialOptions = levelManager.getRandomUpgrades(4);
+        assertEquals(4,initialOptions.size(),"Il pool iniziale conta solo 3 ");
+        
 
         // Trova l'upgrade del danno e portalo al massimo
         Upgrade damageUpgrade = initialOptions.stream()
