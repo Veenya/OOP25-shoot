@@ -19,7 +19,6 @@ public class Handler {
      */
     public List<GameObject> object = new CopyOnWriteArrayList<>();
 
-    // TODO: Lambda
     /**
      * Updates the state of all active game objects for the current tick.
      */
