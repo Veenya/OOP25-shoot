@@ -41,8 +41,8 @@ public class Game extends Canvas implements Runnable {
      * Initializes all game subsystems and creates the window.
      */
     public Game() {
-        handler   = new Handler();
-        camera    = new Camera(0, 0);
+        handler = new Handler();
+        camera = new Camera(0, 0);
         resources = new ResourceLoader();
 
         levelManager = new LevelManager(null);
@@ -50,9 +50,9 @@ public class Game extends Canvas implements Runnable {
         player = levelLoader.load(resources.getLevelImage());
         levelManager.setPlayer(player);
 
-        spawner     = new Spawner(handler, resources.getEnemySS(), resources.getLevelImage(), levelManager);
+        spawner = new Spawner(handler, resources.getEnemySS(), resources.getLevelImage(), levelManager);
         bossSpawner = new BossSpawner(handler, resources.getEnemySS(), resources.getCrateImage(), levelManager);
-        renderer    = new GameRenderer(handler, camera, levelManager, this);
+        renderer = new GameRenderer(handler, camera, levelManager, this);
 
         new Window(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, Constants.TITLE, this);
         this.addMouseListener(new MouseInput(handler, camera, this));
@@ -73,7 +73,7 @@ public class Game extends Canvas implements Runnable {
             freshLevelManager.setPlayer(player);
         }
 
-        spawner     = new Spawner(handler, resources.getEnemySS(), resources.getLevelImage(), freshLevelManager);
+        spawner = new Spawner(handler, resources.getEnemySS(), resources.getLevelImage(), freshLevelManager);
         bossSpawner = new BossSpawner(handler, resources.getEnemySS(), resources.getCrateImage(), freshLevelManager);
 
         Game.gameState = STATE.GAME;
