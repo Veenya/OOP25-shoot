@@ -75,6 +75,7 @@ public class MouseInput extends MouseAdapter {
 
                 // Creiamo il proiettile che viaggia da startX,startY fino a worldX,worldY
                 handler.addObject(new Bullet(startX, startY, ID.Bullet, handler, worldX, worldY, null, damage));
+                System.out.print("Sto sparando");
                 game.ammo--;
                 break; // Usciamo dal ciclo, abbiamo già sparato
             }
