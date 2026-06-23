@@ -31,23 +31,23 @@ public class GameRenderer {
     /**
      * Creates a GameRenderer.
      *
-     * @param handler      the handler containing all active game objects.
-     * @param camera       the camera used to translate the world view.
+     * @param handler the handler containing all active game objects.
+     * @param camera the camera used to translate the world view.
      * @param levelManager the level manager providing XP data for the HUD.
-     * @param canvas       the canvas to draw onto.
+     * @param canvas the canvas to draw onto.
      */
     public GameRenderer(Handler handler, Camera camera, LevelManager levelManager, Canvas canvas) {
-        this.handler      = handler;
-        this.camera       = camera;
+        this.handler = handler;
+        this.camera = camera;
         this.levelManager = levelManager;
-        this.canvas       = canvas;
+        this.canvas = canvas;
     }
 
     /**
      * Renders the current frame based on the active game state.
      *
-     * @param gameState           the current game state.
-     * @param ammo                the current ammo count to display in the HUD.
+     * @param gameState the current game state.
+     * @param ammo the current ammo count to display in the HUD.
      * @param currentUpgradeOptions the list of upgrade options to display in LEVEL_UP state.
      */
     public void render(STATE gameState, int ammo, List<Upgrade> currentUpgradeOptions) {
