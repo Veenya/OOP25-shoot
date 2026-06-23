@@ -24,10 +24,7 @@ public class Handler {
      * Updates the state of all active game objects for the current tick.
      */
     public void tick() {
-        for (int i = 0; i < object.size(); i++) {
-            GameObject tempObject = object.get(i);
-            tempObject.tick();
-        }
+        object.forEach(GameObject::tick);
     }
 
     /**
