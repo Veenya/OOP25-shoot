@@ -16,6 +16,9 @@ import it.unibo.shoot.view.Window;
 /**
  * Core game class. Manages the game loop, game state, and coordinates
  * the main subsystems: handler, camera, renderer, spawners, and level loading.
+ * 
+ * The game behavior changes depending on the current STATE
+ * (MENU, GAME, LEVEL_UP, GAME_OVER).
  */
 public class Game extends Canvas implements Runnable {
 
@@ -60,6 +63,7 @@ public class Game extends Canvas implements Runnable {
 
     /**
      * Resets the game to its initial state and restarts the match.
+     * Reinitializes player, level manager, spawners, and clears all entities.
      */
     public void restartGame() {
         handler.clearAllObjects();
@@ -113,6 +117,10 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
+    /**
+     * Updates game logic depending on the current state.
+     * Active only during GAME state; other states pause gameplay updates.
+     */
     private void tick() {
         if (gameState == STATE.GAME) {
             handler.tick();
@@ -134,6 +142,9 @@ public class Game extends Canvas implements Runnable {
         thread.start();
     }
 
+    /**
+     * Stops the game loop and waits for the thread to terminate.
+     */
     private void stop() {
         isRunning = false;
         try {
