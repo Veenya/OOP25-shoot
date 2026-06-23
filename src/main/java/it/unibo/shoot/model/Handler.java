@@ -33,10 +33,7 @@ public class Handler {
      * @param g the graphics context to render onto
      */
     public void render(Graphics g) {
-        for (int i = 0; i < object.size(); i++) {
-            GameObject tempObject = object.get(i);
-            tempObject.render(g);
-        }
+        object.forEach(o -> o.render(g));
     }
 
     /**
