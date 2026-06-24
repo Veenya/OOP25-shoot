@@ -21,8 +21,8 @@ public class Sound {
      */
     public enum SoundType {
         SHOOT,
-        HIT,
-        DESTROY
+        LEVEL_UP,
+        GAME_OVER
     }
 
     private final Map<SoundType, URL> sounds = new HashMap<>();
@@ -31,11 +31,9 @@ public class Sound {
      * Constructs a Sound instance and loads all audio resources from the classpath.
      */
     public Sound() {
-        // C:\Unibo\OOP25\shoot\OOP25-shoot\src\main\resources\audio\pop_1.wav
         loadResource(SoundType.SHOOT, "audio/pop_1.wav");
-
-        //loadResource(SoundType.HIT, "game/obj/sound/hit.wav");
-        //loadResource(SoundType.DESTROY, "game/obj/sound/destroy.wav");
+        loadResource(SoundType.LEVEL_UP, "audio/level_up.wav");
+        loadResource(SoundType.GAME_OVER, "audio/game_over.wav");
     }
 
     /**
@@ -67,7 +65,7 @@ public class Sound {
     /**
      * Loads an audio resource from the classpath and stores it in the map.
      *
-     * @param type the {@link SoundType} key to associate with the resource.
+     * @param type the SoundType key to associate with the resource.
      * @param path the classpath path of the audio file.
      */
     private void loadResource(SoundType type, String path) {
