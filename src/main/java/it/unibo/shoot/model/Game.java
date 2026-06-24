@@ -51,7 +51,7 @@ public class Game extends Canvas implements Runnable {
         resources = new ResourceLoader();
         sound = new Sound();
 
-        levelManager = new LevelManager(null);
+        levelManager = new LevelManager(this);
         LevelLoader levelLoader = new LevelLoader(handler, resources, levelManager, this);
         player = levelLoader.load(resources.getLevelImage());
         levelManager.setPlayer(player);

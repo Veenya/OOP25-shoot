@@ -8,6 +8,7 @@ import it.unibo.shoot.view.PlayerView;
 import it.unibo.shoot.controller.PlayerController;
 import it.unibo.shoot.loader.SpriteSheet;
 import it.unibo.shoot.GameObjects.GameObject;
+import it.unibo.shoot.audio.Sound;
 
 public class Player extends GameObject {
 
@@ -33,7 +34,7 @@ public class Player extends GameObject {
     public void tick() {
         if (model.isDead()) {
             Game.gameState = STATE.GAME_OVER;
-            //TODO: Death sound
+            game.getSound().play(Sound.SoundType.GAME_OVER);
             return; // Esce immediatamente, non disegna e non calcola più nulla.
         }
         controller.update(); 

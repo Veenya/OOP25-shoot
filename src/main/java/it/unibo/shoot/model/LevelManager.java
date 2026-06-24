@@ -1,9 +1,11 @@
 package it.unibo.shoot.model;
 
-// Questo file DEVE chiamarsi LevelManager.java
-// Add this import at the top of LevelManager.java
 import java.util.*;
 import it.unibo.shoot.Upgrades.*;
+import it.unibo.shoot.audio.Sound;
+import it.unibo.shoot.model.Game;
+
+
 public class LevelManager {
     private int currentLevel = 1;
     private int currentXP = 0;
@@ -12,9 +14,10 @@ public class LevelManager {
     private List<Upgrade> availableUpgrades;
     public static List<Upgrade> currentUpgradeOptions = new ArrayList<>();
     private Player player;
+    Game game;
 
-    public LevelManager(Player player) {
-        this.player = player;
+    public LevelManager(Game game) {
+        this.game = game;
         this.availableUpgrades = new ArrayList<>();
         
         // Inizializzo il pool con i 5 upgrade che abbiamo creato
@@ -35,6 +38,7 @@ public class LevelManager {
         currentXP -= nextLevelXP;
         currentLevel++;
         nextLevelXP = (int) (nextLevelXP * 1.25);
+        //game.getSound().play(Sound.SoundType.LEVEL_UP);
         triggerLevelUpMenu();
     }
 

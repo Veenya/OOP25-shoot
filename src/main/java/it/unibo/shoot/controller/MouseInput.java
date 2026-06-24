@@ -58,6 +58,10 @@ public class MouseInput extends MouseAdapter {
             return; // Ferma il codices q
         }
 
+        if (Game.gameState != STATE.GAME) {
+            return;
+        }
+
 
         // 2. Le trasformiamo in coordinate assolute del mondo di gioco
         int worldX = (int) (mx + camera.getX());
