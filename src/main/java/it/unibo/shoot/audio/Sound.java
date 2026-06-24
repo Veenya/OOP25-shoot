@@ -79,6 +79,11 @@ public class Sound {
         sounds.put(type, url);
     }
 
+    /**
+     * Loads the background music in loop.
+     * 
+     * @param path of the song to reproduce.
+     */
     private void loadBackgroundMusic(String path) {
         try {
             URL url = getClass().getClassLoader().getResource(path);
