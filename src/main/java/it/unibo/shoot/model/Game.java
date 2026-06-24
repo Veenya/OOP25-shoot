@@ -133,7 +133,6 @@ public class Game extends Canvas implements Runnable {
                 camera.tick((Player) handler.getPlayer());
             }
         }
-        // MENU, GAME_OVER, LEVEL_UP: physics frozen
     }
 
     /**
