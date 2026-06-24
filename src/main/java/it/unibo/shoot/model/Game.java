@@ -12,9 +12,10 @@ import it.unibo.shoot.util.Constants;
 import it.unibo.shoot.view.Camera;
 import it.unibo.shoot.view.GameRenderer;
 import it.unibo.shoot.view.Window;
+import it.unibo.shoot.audio.Sound;
 
 /**
- * Core game class. Manages the game loop, game state, and coordinates
+ * Core game class. Manages the game loop, game state, sound, and coordinates
  * the main subsystems: handler, camera, renderer, spawners, and level loading.
  * 
  * The game behavior changes depending on the current STATE
@@ -35,6 +36,7 @@ public class Game extends Canvas implements Runnable {
     private final LevelManager levelManager;
     private final GameRenderer renderer;
     private final ResourceLoader resources;
+    private final Sound sound;
 
     private Spawner spawner;
     private BossSpawner bossSpawner;
@@ -47,6 +49,7 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler();
         camera = new Camera(0, 0);
         resources = new ResourceLoader();
+        sound = new Sound();
 
         levelManager = new LevelManager(null);
         LevelLoader levelLoader = new LevelLoader(handler, resources, levelManager, this);
@@ -58,7 +61,7 @@ public class Game extends Canvas implements Runnable {
         renderer = new GameRenderer(handler, camera, levelManager, this);
 
         new Window(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, Constants.TITLE, this);
-        this.addMouseListener(new MouseInput(handler, camera, this));
+        this.addMouseListener(new MouseInput(handler, camera, sound, this));
     }
 
     /**

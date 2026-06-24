@@ -6,16 +6,20 @@ import it.unibo.shoot.GameObjects.*;
 import it.unibo.shoot.view.Camera;
 import it.unibo.shoot.Upgrades.*;
 import it.unibo.shoot.model.*;
+import it.unibo.shoot.audio.Sound;
 
 public class MouseInput extends MouseAdapter {
 
-    private Handler handler;
-    private Camera camera;
-    private Game game;
-    public MouseInput(Handler handler, Camera camera, Game game) {
+    private final Handler handler;
+    private final Camera camera;
+    private final Game game;
+    private final Sound sound;
+
+    public MouseInput(Handler handler, Camera camera, Sound sound, Game game) {
         this.handler = handler;
         this.camera = camera;
         this.game = game;
+        this.sound = sound;
     }
 
     @Override
@@ -76,6 +80,7 @@ public class MouseInput extends MouseAdapter {
                 // Creiamo il proiettile che viaggia da startX,startY fino a worldX,worldY
                 handler.addObject(new Bullet(startX, startY, ID.Bullet, handler, worldX, worldY, null, damage));
                 //TODO: Put shooting sound
+                sound.play(Sound.SoundType.SHOOT);
                 game.ammo--;
                 break; // Usciamo dal ciclo, abbiamo già sparato
             }
