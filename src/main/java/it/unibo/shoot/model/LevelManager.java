@@ -44,7 +44,7 @@ public class LevelManager {
     public int getCurrentLevel() {
         return this.currentLevel;}
     private void triggerLevelUpMenu() {
-    Game.levelUpTime = System.currentTimeMillis();
+    //Game.levelUpTime = System.currentTimeMillis();
     // 1. Extract 3 random upgrades
     List<Upgrade> options = getRandomUpgrades(3);
     
