@@ -112,9 +112,9 @@ public class GameRenderer {
 
     /** Renders all game objects applying camera translation. */
     private void renderWorld(Graphics g) {
-        g.translate((int) -camera.getX(), (int) -camera.getY());
+        g.translate((int)-camera.getX(), (int)-camera.getY());
         handler.render(g);
-        g.translate((int)  camera.getX(), (int)  camera.getY());
+        g.translate((int)camera.getX(), (int)camera.getY());
     }
 
     /** Renders the HUD: HP bar, EXP bar, ammo counter. */
