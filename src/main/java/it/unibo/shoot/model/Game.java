@@ -157,18 +157,38 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    /**
+     * Sets the state of the game.
+     * 
+     * @param state of the game we want to set.
+     */
     public void setGameState(STATE state) {
         this.gameState = state;
     }
 
+    /**
+     * Returs the current state of the game.
+     * 
+     * @return the state of the game.
+     */
     public STATE getGameState() {
         return this.gameState;
     }
 
+    /**
+     * Sets the upgrade options in the level-up menu.
+     * 
+     * @param options list of selected upgrades that will be shown to player.
+     */
     public void setUpgradeOptions(List<Upgrade> options) {
         this.currentUpgradeOptions = new ArrayList<>(options);
     }
 
+    /**
+     * Returns the list of options currently available.
+     * 
+     * @return list of currently available options.
+     */
     public List<Upgrade> getUpgradeOptions() {
         return currentUpgradeOptions;
     }
@@ -176,6 +196,7 @@ public class Game extends Canvas implements Runnable {
     
     /**
      * Returns the Sound used to manage audio in game.
+     * 
      * @return sound object
      */
     public Sound getSound() {
