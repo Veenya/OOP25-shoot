@@ -78,8 +78,8 @@ public class GameRenderer {
     /**
      * Renders the current frame based on the active game state.
      *
-     * @param gameState             the current game state.
-     * @param ammo                  the current ammo count to display in the HUD.
+     * @param gameState the current game state.
+     * @param ammo the current ammo count to display in the HUD.
      * @param currentUpgradeOptions the list of upgrade options to display in LEVEL_UP state.
      */
     public void render(STATE gameState, int ammo, List<Upgrade> currentUpgradeOptions) {
@@ -98,17 +98,17 @@ public class GameRenderer {
             renderHUD(g, ammo);
         }
 
-        if      (gameState == STATE.LEVEL_UP)  renderLevelUpOverlay(g, currentUpgradeOptions);
-        else if (gameState == STATE.MENU)       renderMenu(g);
-        else if (gameState == STATE.GAME_OVER)  renderGameOver(g);
+        if (gameState == STATE.LEVEL_UP)  {
+            renderLevelUpOverlay(g, currentUpgradeOptions);
+        } else if (gameState == STATE.MENU) {
+            renderMenu(g);
+        } else if (gameState == STATE.GAME_OVER) {
+            renderGameOver(g);
+        }
 
         g.dispose();
         bs.show();
     }
-
-    // -------------------------------------------------------------------------
-    // Private helpers
-    // -------------------------------------------------------------------------
 
     /** Renders all game objects applying camera translation. */
     private void renderWorld(Graphics g) {
