@@ -6,10 +6,11 @@ import java.awt.image.BufferedImage;
 import it.unibo.shoot.GameObjects.Bullet;
 import it.unibo.shoot.GameObjects.GameObject;
 import it.unibo.shoot.loader.SpriteSheet;
+import it.unibo.shoot.util.Constants;
 
 public class Enemy extends GameObject{
 
-    private LevelManager levelManager;
+    final private LevelManager levelManager;
     protected Handler handler;
     protected float speed;                                  //velocita nemico
     protected int hp;                                       //vita del nemico
@@ -39,6 +40,20 @@ public class Enemy extends GameObject{
         GameObject player = null;
         x += velX;
         y += velY;
+
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        if (x > Constants.WORLD_WIDTH - 32) {
+            x = Constants.WORLD_WIDTH - 32;
+        }
+        if (y > Constants.WORLD_HEIGHT - 32) {
+            y = Constants.WORLD_HEIGHT - 32;
+        }
+
 
         if (Math.abs(velX) > Math.abs(velY)) {                                  //se la velocita laterale > verticale, controlla se il modello guarda a sinistra o destra
             if (velX > 0) dir = Direction.RIGHT;                                // velX positiva, guarda a DESTRA
@@ -155,7 +170,7 @@ public class Enemy extends GameObject{
         return new Rectangle(x-4, y-4, 40, 40);
     }
 
-    protected void onDeath() {
+    protected void onDeath() {                                                  //viene usata solo dal boss per far spawnare la chest
     }
 
 }

@@ -10,5 +10,5 @@ public class Enemy1 extends Enemy{
         }
 }
 
-//questo è il nemico "base" con vita impostata a 100 e danni e xp base presenti in Enemy.java
+//il nemico "base" con vita impostata a 100 e danni e xp base presenti in Enemy.java
 //danno = 10 = xp

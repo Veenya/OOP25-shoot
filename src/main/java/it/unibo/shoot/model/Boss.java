@@ -8,8 +8,8 @@ import it.unibo.shoot.loader.SpriteSheet;
 
 public class Boss extends Enemy {
 
-    private BossSpawner bossSpawner;
-    private BufferedImage crate_image;
+    final private BossSpawner bossSpawner;
+    final private BufferedImage crate_image;
 
     public Boss(int x, int y, ID id, SpriteSheet ss, Handler handler, LevelManager levelManager, BufferedImage crate_image, BossSpawner bossSpawner) {
         super(x, y, id, ss, handler, 0.5f, levelManager);
@@ -24,7 +24,7 @@ public class Boss extends Enemy {
     @Override
     protected void onDeath() {
         handler.addObject(new Crate(x, y, ID.Crate, crate_image));
-        bossSpawner.isBossDead();
+        bossSpawner.onBossDeath();
     }
 
     @Override
@@ -36,10 +36,4 @@ public class Boss extends Enemy {
     public Rectangle getBoundsBig() {
         return new Rectangle(x-4, y-4, 72, 72);
     }
-
-    @Override
-    public void tick() {
-        super.tick();
-    }
-    
 }
