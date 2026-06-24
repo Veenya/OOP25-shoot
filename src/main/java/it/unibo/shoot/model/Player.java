@@ -33,6 +33,7 @@ public class Player extends GameObject {
     public void tick() {
         if (model.isDead()) {
             Game.gameState = STATE.GAME_OVER;
+            //TODO: Death sound
             return; // Esce immediatamente, non disegna e non calcola più nulla.
         }
         controller.update(); 

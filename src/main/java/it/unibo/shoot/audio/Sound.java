@@ -37,7 +37,7 @@ public class Sound {
     }
 
     /**
-     * Plays the sound effect identified by the given {@link SoundType}.
+     * Plays the sound effect identified by the given SoundType.
      *
      * @param type the sound effect to play.
      */

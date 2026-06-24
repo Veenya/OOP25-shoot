@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable {
         renderer = new GameRenderer(handler, camera, levelManager, this);
 
         new Window(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, Constants.TITLE, this);
-        this.addMouseListener(new MouseInput(handler, camera, sound, this));
+        this.addMouseListener(new MouseInput(handler, camera, this));
     }
 
     /**
@@ -155,5 +155,14 @@ public class Game extends Canvas implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    
+    /**
+     * Returns the Sound used to manage audio in game.
+     * @return sound object
+     */
+    public Sound getSound() {
+        return sound;
     }
 }
