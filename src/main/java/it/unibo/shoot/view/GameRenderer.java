@@ -24,19 +24,19 @@ public class GameRenderer {
     private final Camera camera;
     private final LevelManager levelManager;
     private final Canvas canvas;
-    private final int width  = Constants.SCREEN_WIDTH;
+    private final int width = Constants.SCREEN_WIDTH;
     private final int height = Constants.SCREEN_HEIGHT;
 
-    // Font kawaii ✨
-    private final Font fontTitle      = new Font("Comic Sans MS", Font.BOLD,   64);
-    private final Font fontGameOver   = new Font("Comic Sans MS", Font.BOLD,   48);
+    // Font
+    private final Font fontTitle = new Font("Comic Sans MS", Font.BOLD,   64);
+    private final Font fontGameOver = new Font("Comic Sans MS", Font.BOLD,   48);
     private final Font fontOverlayBig = new Font("Comic Sans MS", Font.BOLD,   28);
-    private final Font fontMenu       = new Font("Comic Sans MS", Font.PLAIN,  20);
-    private final Font fontCard       = new Font("Comic Sans MS", Font.BOLD,   15);
-    private final Font fontCardSub    = new Font("Comic Sans MS", Font.PLAIN,  13);
-    private final Font fontCardDesc   = new Font("Comic Sans MS", Font.PLAIN,  13);
-    private final Font fontHUD        = new Font("Comic Sans MS", Font.BOLD,   12);
-    private final Font fontSmall      = new Font("Comic Sans MS", Font.PLAIN,  14);
+    private final Font fontMenu = new Font("Comic Sans MS", Font.PLAIN,  20);
+    private final Font fontCard = new Font("Comic Sans MS", Font.BOLD,   15);
+    private final Font fontCardSub = new Font("Comic Sans MS", Font.PLAIN,  13);
+    private final Font fontCardDesc = new Font("Comic Sans MS", Font.PLAIN,  13);
+    private final Font fontHUD = new Font("Comic Sans MS", Font.BOLD,   12);
+    private final Font fontSmall = new Font("Comic Sans MS", Font.PLAIN,  14);
 
     // Colori pastello kawaii 🌸
     private static final Color COL_BG           = new Color(255, 240, 245); // rosa pallido
