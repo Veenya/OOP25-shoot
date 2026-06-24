@@ -1,7 +1,5 @@
 import it.unibo.shoot.model.Game;
 
-// TODO: Aggiungere i final?
-
 /**
  * Main class of the game.
  */
