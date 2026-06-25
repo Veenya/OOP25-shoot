@@ -18,9 +18,11 @@ public abstract class GameObject {
 
     /** Speed of object in pixels per tick. */
     protected float velX = 0, velY = 0;
-    /**ID of object type. */
+
+    /** ID of object type. */
     protected ID id;
-    /**Layer where object will be rendered */
+
+    /** Layer where object will be rendered */
     protected int layer;
 
     protected SpriteSheet ss;
