@@ -70,9 +70,9 @@ public class Game extends Canvas implements Runnable {
      */
     public void restartGame() {
         handler.clearAllObjects();
-        this.ammo = 50;
+        this.ammo = 100;
 
-        LevelManager freshLevelManager = new LevelManager(null);
+        LevelManager freshLevelManager = new LevelManager(this);
         LevelLoader levelLoader = new LevelLoader(handler, resources, freshLevelManager, this);
         player = levelLoader.load(resources.getLevelImage());
 

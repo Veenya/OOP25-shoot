@@ -10,7 +10,7 @@ public class LevelManager {
     private int currentLevel = 1;
     private int currentXP = 0;
     private int nextLevelXP = 100;
-    
+    private long lastLevelUpTime = 0;
     private List<Upgrade> availableUpgrades;
     private List<Upgrade> currentUpgradeOptions = new ArrayList<>();
     private Player player;
@@ -72,7 +72,6 @@ public class LevelManager {
     }
 
     public void setPlayer(Player player){
-        this.player = player;
     }
 
     public int getCurrentXP() {

@@ -71,7 +71,7 @@ public class Player extends GameObject {
 
             if (tempObject.getId() == ID.Crate) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    game.ammo += 20;
+                    game.ammo += 50;
                     handler.removeObject(tempObject);
                     i--;
                 }
@@ -154,4 +154,7 @@ public class Player extends GameObject {
     /*public int getExperience() {
     return model.currentXP();
     }*/
+   public Game getGame() {
+    return this.game; // Ritorna il riferimento al Game reale passato nel costruttore
+}
 }

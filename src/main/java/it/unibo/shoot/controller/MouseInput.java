@@ -24,7 +24,6 @@ public class MouseInput extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        long currentTime = System.currentTimeMillis();
     
         // Se sono passati MENO di 2000 millisecondi (2 secondi), ignora il click!
         //if (currentTime - Game.levelUpTime < 2000) {
