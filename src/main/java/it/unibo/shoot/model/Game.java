@@ -207,4 +207,11 @@ public class Game extends Canvas implements Runnable {
     public Sound getSound() {
         return sound;
     }
+    /**
+ * Ritorna l'istanza del LevelManager attualmente utilizzata nel gioco.
+ * * @return il levelManager corrente
+ */
+    public LevelManager getLevelManager() {
+    return this.levelManager;
+    }
 }
