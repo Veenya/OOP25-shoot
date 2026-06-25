@@ -181,7 +181,7 @@ public class GameRenderer {
         g.drawRoundRect(ammoX, 0, 100, barH, 10, 10);
         g.setFont(fontHUD);
         g.setColor(ammo <= 10 ? COL_AMMO_LOW : COL_AMMO_OK);
-        String ammoStr = "✦ AMMO: " + ammo;
+        String ammoStr = "AMMO: " + ammo;
         int ammoStrW = g.getFontMetrics().stringWidth(ammoStr);
         g.drawString(ammoStr, ammoX + (100 - ammoStrW) / 2, 14);
     }
