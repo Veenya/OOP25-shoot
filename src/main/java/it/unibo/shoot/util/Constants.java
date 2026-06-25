@@ -35,7 +35,7 @@ public class Constants {
     public static final int MENU_FONT_SIZE = 20;
     public static final int HUD_FONT_SIZE = 12;
 
-    /** Color value */
+    /** Color values */
     public static final int[] COL_BG = {255, 240, 245};
     public static final int[] COL_HP_BG = {255, 182, 193};
     public static final int[] COL_HP_FG = {255, 105, 135};
