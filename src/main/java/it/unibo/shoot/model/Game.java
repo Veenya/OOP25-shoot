@@ -23,7 +23,7 @@ import it.unibo.shoot.audio.Sound;
  */
 public class Game extends Canvas implements Runnable {
 
-    private STATE gameState = STATE.MENU;
+    public STATE gameState = STATE.MENU;
     private List<Upgrade> currentUpgradeOptions = new ArrayList<>();
 
     public int ammo = 50;
