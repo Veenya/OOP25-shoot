@@ -27,16 +27,22 @@ public class GameRenderer {
     private final int width = Constants.SCREEN_WIDTH;
     private final int height = Constants.SCREEN_HEIGHT;
 
+    private static final String FONT = "Comic Sans MS";
+
+    private static Font comic(int style, int size) {
+        return new Font(FONT, style, size);
+    }
+
     // Font
-    private final Font fontTitle = new Font("Comic Sans MS", Font.BOLD,   64);
-    private final Font fontGameOver = new Font("Comic Sans MS", Font.BOLD,   48);
-    private final Font fontOverlayBig = new Font("Comic Sans MS", Font.BOLD,   28);
-    private final Font fontMenu = new Font("Comic Sans MS", Font.PLAIN,  20);
-    private final Font fontCard = new Font("Comic Sans MS", Font.BOLD,   15);
-    private final Font fontCardSub = new Font("Comic Sans MS", Font.PLAIN,  13);
-    private final Font fontCardDesc = new Font("Comic Sans MS", Font.PLAIN,  13);
-    private final Font fontHUD = new Font("Comic Sans MS", Font.BOLD,   12);
-    private final Font fontSmall = new Font("Comic Sans MS", Font.PLAIN,  14);
+    private final Font fontTitle = comic(Font.BOLD, Constants.TITLE_FONT_SIZE);
+    private final Font fontGameOver = comic(Font.BOLD, Constants.GAME_OVER_FONT_SIZE);
+    private final Font fontOverlayBig = comic(Font.BOLD, Constants.OVERLAY_FONT_SIZE);
+    private final Font fontMenu = comic(Font.PLAIN, Constants.MENU_FONT_SIZE);
+    private final Font fontCard = comic(Font.BOLD, Constants.CARD_TITLE_FONT_SIZE);
+    private final Font fontCardSub = comic(Font.PLAIN, Constants.CARD_DESC_FONT_SIZE);
+    private final Font fontCardDesc = comic(Font.PLAIN, Constants.CARD_DESC_FONT_SIZE);
+    private final Font fontHUD = comic(Font.BOLD, Constants.HUD_FONT_SIZE);
+    private final Font fontSmall = comic(Font.PLAIN, Constants.MENU_FONT_SIZE);
 
     // Colors
     private static final Color COL_BG           = new Color(255, 240, 245); // rosa pallido
@@ -63,10 +69,10 @@ public class GameRenderer {
     /**
      * Creates a GameRenderer.
      *
-     * @param handler      the handler containing all active game objects.
-     * @param camera       the camera used to translate the world view.
+     * @param handler the handler containing all active game objects.
+     * @param camera the camera used to translate the world view.
      * @param levelManager the level manager providing XP data for the HUD.
-     * @param canvas       the canvas to draw onto.
+     * @param canvas the canvas to draw onto.
      */
     public GameRenderer(Handler handler, Camera camera, LevelManager levelManager, Canvas canvas) {
         this.handler = handler;

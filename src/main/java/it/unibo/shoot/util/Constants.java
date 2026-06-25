@@ -35,5 +35,26 @@ public class Constants {
     public static final int MENU_FONT_SIZE = 20;
     public static final int HUD_FONT_SIZE = 12;
 
+    /** Color value */
+    public static final int[] COL_BG = {255, 240, 245};
+    public static final int[] COL_HP_BG = {255, 182, 193};
+    public static final int[] COL_HP_FG = {255, 105, 135};
+    public static final int[] COL_EXP_BG = {200, 180, 255};
+    public static final int[] COL_EXP_FG = {148,  87, 235};
+    public static final int[] COL_AMMO_BG = { 80,  60,  80, 180};
+    public static final int[] COL_AMMO_LOW = {255, 100, 130};
+    public static final int[] COL_AMMO_OK = {255, 213, 100};
+    public static final int[] COL_CARD_BG = { 50,  40,  70};
+    public static final int[] COL_CARD_BD = {255, 182, 219};
+    public static final int[] COL_CARD_NAME = {255, 213, 240};
+    public static final int[] COL_OVERLAY = { 30,  10,  40, 170};
+    public static final int[] COL_GO_BG = { 20,  10,  30, 200};
+    public static final int[] COL_GO_CARD = { 40,  20,  50};
+    public static final int[] COL_GO_BORDER = {255, 150, 180};
+    public static final int[] COL_BTN_BG = { 70,  30,  60};
+    public static final int[] COL_TITLE = {255, 150, 200};
+    public static final int[] COL_SUBTITLE = {220, 190, 255};
+    public static final int[] COL_MENU_BG = { 25,  10,  35};
+    public static final int[] COL_DEAD = {255, 120, 160};
     
 }
