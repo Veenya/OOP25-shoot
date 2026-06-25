@@ -40,8 +40,6 @@ public abstract class GameObject {
         this.ss = ss;
     }
 
-    // Methods every object has in common
-
     /** 
      * Updates object state each game tick 
      */
