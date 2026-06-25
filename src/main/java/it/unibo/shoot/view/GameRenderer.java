@@ -29,42 +29,59 @@ public class GameRenderer {
 
     private static final String FONT = "Comic Sans MS";
 
-    private static Font comic(int style, int size) {
+    /**
+     * Creates a font with the given style and size.
+     * 
+     * @param style of the font
+     * @param size of the font
+     * @return the font
+     */
+    private static Font fontMaker(int style, int size) {
         return new Font(FONT, style, size);
     }
 
+    /**
+     * Creates a color from an int array of RGB or GBA values.
+     * 
+     * @param c array of 3 integer values in the range 0-255.
+     * @return a color instance
+     */
+    private static Color col(int[] c) {
+        return c.length == 4 ? new Color(c[0], c[1], c[2], c[3]) : new Color(c[0], c[1], c[2]);
+    }
+
     // Font
-    private final Font fontTitle = comic(Font.BOLD, Constants.TITLE_FONT_SIZE);
-    private final Font fontGameOver = comic(Font.BOLD, Constants.GAME_OVER_FONT_SIZE);
-    private final Font fontOverlayBig = comic(Font.BOLD, Constants.OVERLAY_FONT_SIZE);
-    private final Font fontMenu = comic(Font.PLAIN, Constants.MENU_FONT_SIZE);
-    private final Font fontCard = comic(Font.BOLD, Constants.CARD_TITLE_FONT_SIZE);
-    private final Font fontCardSub = comic(Font.PLAIN, Constants.CARD_DESC_FONT_SIZE);
-    private final Font fontCardDesc = comic(Font.PLAIN, Constants.CARD_DESC_FONT_SIZE);
-    private final Font fontHUD = comic(Font.BOLD, Constants.HUD_FONT_SIZE);
-    private final Font fontSmall = comic(Font.PLAIN, Constants.MENU_FONT_SIZE);
+    private final Font fontTitle = fontMaker(Font.BOLD, Constants.TITLE_FONT_SIZE);
+    private final Font fontGameOver = fontMaker(Font.BOLD, Constants.GAME_OVER_FONT_SIZE);
+    private final Font fontOverlayBig = fontMaker(Font.BOLD, Constants.OVERLAY_FONT_SIZE);
+    private final Font fontMenu = fontMaker(Font.PLAIN, Constants.MENU_FONT_SIZE);
+    private final Font fontCard = fontMaker(Font.BOLD, Constants.CARD_TITLE_FONT_SIZE);
+    private final Font fontCardSub = fontMaker(Font.PLAIN, Constants.CARD_DESC_FONT_SIZE);
+    private final Font fontCardDesc = fontMaker(Font.PLAIN, Constants.CARD_DESC_FONT_SIZE);
+    private final Font fontHUD = fontMaker(Font.BOLD, Constants.HUD_FONT_SIZE);
+    private final Font fontSmall = fontMaker(Font.PLAIN, Constants.MENU_FONT_SIZE);
 
     // Colors
-    private static final Color COL_BG           = new Color(255, 240, 245); // rosa pallido
-    private static final Color COL_HP_BG        = new Color(255, 182, 193); // rosa chiaro
-    private static final Color COL_HP_FG        = new Color(255, 105, 135); // rosa acceso
-    private static final Color COL_EXP_BG       = new Color(200, 180, 255); // lavanda chiaro
-    private static final Color COL_EXP_FG       = new Color(148,  87, 235); // viola
-    private static final Color COL_AMMO_BG      = new Color( 80,  60,  80, 180);
-    private static final Color COL_AMMO_LOW     = new Color(255, 100, 130); // rosa caldo
-    private static final Color COL_AMMO_OK      = new Color(255, 213, 100); // giallo pastello
-    private static final Color COL_CARD_BG      = new Color( 50,  40,  70); // viola scuro
-    private static final Color COL_CARD_BD      = new Color(255, 182, 219); // rosa bordo
-    private static final Color COL_CARD_NAME    = new Color(255, 213, 240); // rosa chiaro
-    private static final Color COL_OVERLAY      = new Color( 30,  10,  40, 170);
-    private static final Color COL_GO_BG        = new Color( 20,  10,  30, 200);
-    private static final Color COL_GO_CARD      = new Color( 40,  20,  50);
-    private static final Color COL_GO_BORDER    = new Color(255, 150, 180);
-    private static final Color COL_BTN_BG       = new Color( 70,  30,  60);
-    private static final Color COL_TITLE        = new Color(255, 150, 200); // rosa titolo
-    private static final Color COL_SUBTITLE     = new Color(220, 190, 255); // lavanda
-    private static final Color COL_MENU_BG      = new Color( 25,  10,  35);
-    private static final Color COL_DEAD         = new Color(255, 120, 160);
+    private static final Color COL_BG = col(Constants.COL_BG);
+    private static final Color COL_HP_BG = col(Constants.COL_HP_BG);
+    private static final Color COL_HP_FG = col(Constants.COL_HP_FG);
+    private static final Color COL_EXP_BG = col(Constants.COL_EXP_BG);
+    private static final Color COL_EXP_FG = col(Constants.COL_EXP_FG);
+    private static final Color COL_AMMO_BG = col(Constants.COL_AMMO_BG);
+    private static final Color COL_AMMO_LOW = col(Constants.COL_AMMO_LOW);
+    private static final Color COL_AMMO_OK = col(Constants.COL_AMMO_OK);
+    private static final Color COL_CARD_BG = col(Constants.COL_CARD_BG);
+    private static final Color COL_CARD_BD = col(Constants.COL_CARD_BD);
+    private static final Color COL_CARD_NAME = col(Constants.COL_CARD_NAME);
+    private static final Color COL_OVERLAY = col(Constants.COL_OVERLAY);
+    private static final Color COL_GO_BG = col(Constants.COL_GO_BG);
+    private static final Color COL_GO_CARD = col(Constants.COL_GO_CARD);
+    private static final Color COL_GO_BORDER = col(Constants.COL_GO_BORDER);
+    private static final Color COL_BTN_BG = col(Constants.COL_BTN_BG);
+    private static final Color COL_TITLE = col(Constants.COL_TITLE);
+    private static final Color COL_SUBTITLE = col(Constants.COL_SUBTITLE);
+    private static final Color COL_MENU_BG = col(Constants.COL_MENU_BG);
+    private static final Color COL_DEAD = col(Constants.COL_DEAD);
 
     /**
      * Creates a GameRenderer.
