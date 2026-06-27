@@ -128,6 +128,8 @@ public class GameRenderer {
         } else if (gameState == STATE.GAME_OVER) {
             renderGameOver(g);
         } else if (gameState == STATE.PAUSE) {
+            renderHUD(g, ammo);
+            renderWorld(g);
             renderPause(g);
         }
 
