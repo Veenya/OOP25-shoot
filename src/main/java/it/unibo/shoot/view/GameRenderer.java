@@ -127,6 +127,8 @@ public class GameRenderer {
             renderMenu(g);
         } else if (gameState == STATE.GAME_OVER) {
             renderGameOver(g);
+        } else if (gameState == STATE.PAUSE) {
+            renderPause(g);
         }
 
         g.dispose();
@@ -300,11 +302,32 @@ public class GameRenderer {
 
     /** Renders the pause screen. */
     private void renderPause(Graphics g) {
-        g.setColor(COL_BG);
+        // Overlay semitrasparente sopra il mondo
+        g.setColor(COL_OVERLAY);
         g.fillRect(0, 0, width, height);
+
+        // Card centrale
+        int cardW = 400, cardH = 200;
+        int cardX = (width - cardW) / 2;
+        int cardY = (height - cardH) / 2;
+
+        g.setColor(COL_GO_CARD);
+        g.fillRoundRect(cardX, cardY, cardW, cardH, 22, 22);
+        g.setColor(COL_CARD_BD);
+        g.drawRoundRect(cardX, cardY, cardW, cardH, 22, 22);
+        g.drawRoundRect(cardX + 2, cardY + 2, cardW - 4, cardH - 4, 20, 20);
+
+        // Titolo
+        g.setColor(COL_TITLE);
         g.setFont(fontGameOver);
         String pause = "~ pausa ~";
-        g.drawString(pause, 100, 100);
+        g.drawString(pause, cardX + (cardW - g.getFontMetrics().stringWidth(pause)) / 2, cardY + 80);
+
+        // Sottotitolo
+        g.setColor(COL_SUBTITLE);
+        g.setFont(fontSmall);
+        String sub = "premi ESC per riprendere";
+        g.drawString(sub, cardX + (cardW - g.getFontMetrics().stringWidth(sub)) / 2, cardY + 130);
     }
 
     /** Draws a styled button with centered text. */
