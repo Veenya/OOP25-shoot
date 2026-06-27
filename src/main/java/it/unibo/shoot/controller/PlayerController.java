@@ -30,12 +30,21 @@ public class PlayerController implements KeyListener {
           }
           }
 
-         if (key == KeyEvent.VK_X) {
-        // Only exit if the game is over or in the main menu
-        if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.MENU) {
-            System.exit(0);
-        }
+        if (key == KeyEvent.VK_X) {
+            // Only exit if the game is over or in the main menu
+            if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.MENU) {
+                System.exit(0);
+            }   
         } 
+
+        // PAUSE
+        if (key == KeyEvent.VK_ESCAPE) {
+            if (game.getGameState() == STATE.GAME) {
+                game.setGameState(STATE.PAUSE);
+            } else if (game.getGameState() == STATE.PAUSE) {
+                game.setGameState(STATE.GAME);
+            }
+        }
 
 
 
