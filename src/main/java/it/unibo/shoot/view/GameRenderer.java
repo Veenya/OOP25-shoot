@@ -298,6 +298,15 @@ public class GameRenderer {
         drawButton(g, btnX, menuY + 260, btnW, btnH, "premi  'X'  per uscire",      new Color(255, 120, 120));
     }
 
+    /** Renders the pause screen. */
+    private void renderPause(Graphics g) {
+        g.setColor(COL_BG);
+        g.fillRect(0, 0, width, height);
+        g.setFont(fontGameOver);
+        String pause = "~ pausa ~";
+        g.drawString(pause, 100, 100);
+    }
+
     /** Draws a styled button with centered text. */
     private void drawButton(Graphics g, int x, int y, int w, int h, String label, Color textColor) {
         g.setColor(COL_BTN_BG);
