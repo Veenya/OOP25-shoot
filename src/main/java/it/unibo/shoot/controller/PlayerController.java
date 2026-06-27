@@ -66,7 +66,7 @@ public class PlayerController implements KeyListener {
         } */
     }
     public void update() {
-    if (game.getGameState() == STATE.GAME_OVER) {
+    if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.PAUSE) {
             return;
     }
     
