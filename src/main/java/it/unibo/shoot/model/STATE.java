@@ -11,5 +11,7 @@ public enum STATE {
     /** The player has died, all physics are frozen. */
     GAME_OVER,
     /** The player has levelled up, the world is frozen and the upgrade menu is shown. */
-    LEVEL_UP
+    LEVEL_UP,
+    /** The game is paused. */
+    PAUSE
 }
