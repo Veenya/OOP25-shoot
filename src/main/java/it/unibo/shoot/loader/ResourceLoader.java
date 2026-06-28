@@ -37,6 +37,9 @@ public class ResourceLoader {
         return enemySS; 
     }
     
-    public BufferedImage getCrateImage() { return crateImage; }
+    public BufferedImage getCrateImage() { 
+        return crateImage; 
+    }
+    
     public BufferedImage getLevelImage() { return levelImage; }
 }
