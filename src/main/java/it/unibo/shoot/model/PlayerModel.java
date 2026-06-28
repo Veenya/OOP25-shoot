@@ -10,29 +10,29 @@ public class PlayerModel {
     private int health;
     private int maxHealth;
     private boolean isDead = false;
-    // Telemetria per l'analisi dei danni (Richiesta per logica funzionale)
+    
     private final List<Integer> damageHistory = new ArrayList<>();
    
     
-    // --- NEW UPGRADE STATS FIELDS ---
-    private double damageMultiplier = 1.0; // Base damage is 100%
-    private double dodgeChance = 0.0;      // Base dodge chance is 0%
-    private double pickupRange = 1.0;      // Base multiplier for XP magnet range
+   
+    private double damageMultiplier = 1.0; 
+    private double dodgeChance = 0.0;      
+    private double pickupRange = 1.0;      
 
     private float velX = 0, velY = 0;
     
-    // Variabili per l'animazione
+   
     private int aniTick, aniIndex, aniSpeed = 10; 
     private boolean isMoving = false;
-    private int row = 0; // 0: Giù, 1: Su, 2: Sinistra, 3: Destra
+    private int row = 0; 
 
-    // Dimensioni per la Hitbox (rimangono 32x32 per la fisica del gioco)
+    
     private final int width = 32;
     private final int height = 32;
 
-    // Variabili per l'invincibilità
+
     private long lastDamageTime = 0; 
-    private final int iFramesDuration = 1000; // 1000 millisecondi = 1 secondo
+    private final int iFramesDuration = 1000; 
 
     public PlayerModel(double startX, double startY, double speed, int maxHealth) {
         this.x = startX;
@@ -42,7 +42,7 @@ public class PlayerModel {
         this.health = maxHealth;
     }
 
-    // --- NEW UPGRADE GETTERS & SETTERS ---
+ 
     public double getSpeed() { 
         return speed; 
     }

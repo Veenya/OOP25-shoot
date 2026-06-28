@@ -79,18 +79,17 @@ public class PlayerModelTest {
 
     @Test
     void testDeathState() {
-        // ARRANGE
+        
         PlayerModel player = new PlayerModel(0, 0, 5.0, 100);
         player.setDodgeChance(0.0);
 
-        // ACT: Danno letale 
+        
         player.takeDamage(999);
 
-        // ASSERT
+        
         assertEquals(0, player.getHealth(), "La vita è scesa sotto lo zero (valore negativo)");
         
-        // ATTENZIONE: Questo test fallirà finché non aggiungi "this.isDead = true;" 
-        // in fondo al tuo metodo takeDamage() dentro l'if (this.health <= 0)
+        
         assertTrue(player.isDead(), "Il flag isDead non è scattato alla morte");
     }
 }

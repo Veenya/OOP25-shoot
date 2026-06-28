@@ -48,22 +48,7 @@ public class PlayerController implements KeyListener {
 
 
 
-        // CORREZIONE 2: Logica di sparo con la barra spaziatrice
-       /* if (key == KeyEvent.VK_SPACE) {
-            
-            // Capiamo da che parte sta guardando il player (0:Giù, 1:Su, 2:Sinistra, 3:Destra)
-            int targetX = (int)model.getX() + 16;
-            int targetY = (int)model.getY() + 16;
-            
-            // "Spingiamo" il bersaglio lontano nella direzione in cui guardiamo
-            if (model.getRow() == 0) targetY += 100;      // Spara in Giù
-            else if (model.getRow() == 1) targetY -= 100; // Spara in Su
-            else if (model.getRow() == 2) targetX += 100; // Spara a Destra
-            else if (model.getRow() == 3) targetX -= 100; // Spara a Sinistra
-
-            // Creiamo il proiettile verso il bersaglio (niente più mouseX o mouseY!)
-            handler.addObject(new Bullet((int)model.getX()+16, (int)model.getY()+16, ID.Bullet, handler, targetX, targetY, null));
-        } */
+        
     }
     public void update() {
     if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.PAUSE) {
