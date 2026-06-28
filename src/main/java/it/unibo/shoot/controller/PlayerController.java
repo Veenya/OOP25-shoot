@@ -11,7 +11,7 @@ public class PlayerController implements KeyListener {
     private PlayerModel model;
     private Game game; 
     
-    // Buffer per il polling fluido del movimento
+    
     private Set<Integer> pressedKeys = new HashSet<>();
 
     public PlayerController(PlayerModel model, Game game) {
@@ -24,11 +24,11 @@ public class PlayerController implements KeyListener {
         int key = e.getKeyCode(); 
         pressedKeys.add(key);
 
-        // GESTIONE DEGLI STATI GLOBALI DI GIOCO (Compromesso Architetturale)
+       
         if (key == KeyEvent.VK_R) {
             if (game.getGameState() == STATE.GAME_OVER) {
                 game.restartGame(); 
-                pressedKeys.clear(); // Pulisce il buffer per evitare movimenti fantasma al riavvio
+                pressedKeys.clear(); 
             }
         }
 
@@ -46,15 +46,10 @@ public class PlayerController implements KeyListener {
     
     @Override
     public void keyTyped(KeyEvent e) {
-        // Lasciato intenzionalmente vuoto. 
-        // L'evento keyTyped non gestisce i KeyCode grezzi ma i caratteri (char).
-        // L'hardware polling è interamente delegato a keyPressed e keyReleased.
+       
     }
 
-    /**
-     * Metodo chiamato dal Game Loop.
-     * Trasforma i tasti attualmente premuti in un vettore vettoriale per il Modello.
-     */
+    
     public void update() {
         if (game.getGameState() == STATE.GAME_OVER) {
             return;
