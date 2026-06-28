@@ -1,5 +1,8 @@
 package it.unibo.shoot.model;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
 
 public class PlayerModel {
     private double x, y;
@@ -7,27 +10,29 @@ public class PlayerModel {
     private int health;
     private int maxHealth;
     private boolean isDead = false;
+    
+    private final List<Integer> damageHistory = new ArrayList<>();
    
     
-    // --- NEW UPGRADE STATS FIELDS ---
-    private double damageMultiplier = 1.0; // Base damage is 100%
-    private double dodgeChance = 0.0;      // Base dodge chance is 0%
-    private double pickupRange = 1.0;      // Base multiplier for XP magnet range
+   
+    private double damageMultiplier = 1.0; 
+    private double dodgeChance = 0.0;      
+    private double pickupRange = 1.0;      
 
     private float velX = 0, velY = 0;
     
-    // Variabili per l'animazione
+   
     private int aniTick, aniIndex, aniSpeed = 10; 
     private boolean isMoving = false;
-    private int row = 0; // 0: Giù, 1: Su, 2: Sinistra, 3: Destra
+    private int row = 0; 
 
-    // Dimensioni per la Hitbox (rimangono 32x32 per la fisica del gioco)
+    
     private final int width = 32;
     private final int height = 32;
 
-    // Variabili per l'invincibilità
+
     private long lastDamageTime = 0; 
-    private final int iFramesDuration = 1000; // 1000 millisecondi = 1 secondo
+    private final int iFramesDuration = 1000; 
 
     public PlayerModel(double startX, double startY, double speed, int maxHealth) {
         this.x = startX;
@@ -37,7 +42,7 @@ public class PlayerModel {
         this.health = maxHealth;
     }
 
-    // --- NEW UPGRADE GETTERS & SETTERS ---
+ 
     public double getSpeed() { 
         return speed; 
     }
@@ -114,34 +119,34 @@ public class PlayerModel {
     }
 
     public void takeDamage(int damage) {
-        // 1. Se sei già a 0, il codice si ferma. I morti non prendono danni extra.
+        // 1. Se sei già a 0, il codice si ferma.
         if (this.health <= 0) {
-        this.health = 0;
-        this.isDead = true; // <--- FONDAMENTALE!
-        System.out.println("GAME OVER! Vita: 0");
-    }
+            this.health = 0;
+            this.isDead = true; 
+            System.out.println("GAME OVER! Vita: 0");
+            return; // <--- FONDAMENTALE: ferma l'esecuzione se è già morto!
+        }
 
-    // Incorporate Dodge Mechanism before checking damage
+        // Incorporate Dodge Mechanism before checking damage
         if (Math.random() < this.dodgeChance) {
             System.out.println("Schivato! Nessun danno subito.");
             return; 
         }
 
-        // 2. Controllo del tempo: chiediamo a Java l'ora esatta in millisecondi
+        // 2. Controllo del tempo per I-Frames
         long currentTime = System.currentTimeMillis();
-        
-        // Se la differenza tra "ora" e "l'ultima volta che hai preso danno" è minore di 1 secondo...
         if (currentTime - lastDamageTime < iFramesDuration) {
-            return; // ...ignora il colpo! Sei invincibile.
+            return; // Ignora il colpo
         }
 
-        // 3. Se il codice arriva fin qui, è passato più di 1 secondo. Prendi danno!
+        // 3. Prendi danno
         this.health -= damage;
-        this.lastDamageTime = currentTime; // Resetta il cronometro per il prossimo colpo
-
-        // 4. Controllo del Game Over
+        this.lastDamageTime = currentTime; 
+        this.damageHistory.add(damage);
+        // 4. CONTROLLO DEL GAME OVER (IL BUG CHE HA FATTO FALLIRE IL TEST ERA QUI)
         if (this.health <= 0) {
             this.health = 0;
+            this.isDead = true; // <--- IL FLAG FONDAMENTALE CHE MANCAVA!
             System.out.println("GAME OVER! Vita: 0");
         } else {
             System.out.println("Danno subito! Vita attuale: " + this.health);
@@ -173,5 +178,30 @@ public class PlayerModel {
 
     public void setHealth(int health) {
         this.health = health ; 
+    }
+    // =========================================
+    // METODI FUNZIONALI (STREAM API & OPTIONAL)
+    // =========================================
+
+    /**
+     * Calcola la media matematica dei danni subiti dall'inizio della partita.
+     * Utilizza Stream API e OptionalDouble per gestire il caso in cui non si siano subiti danni.
+     */
+    public double getAverageDamageTaken() {
+        return damageHistory.stream()
+                            .mapToInt(Integer::intValue)
+                            .average()
+                            .orElse(0.0);
+    }
+
+    /**
+     * Trova il singolo colpo più devastante incassato dal giocatore.
+     * Utilizza Lambda e pipeline di mapping.
+     */
+    public int getMaxDamageTaken() {
+        return damageHistory.stream()
+                            .mapToInt(Integer::intValue)
+                            .max()
+                            .orElse(0);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.unibo.shoot.Upgrades.Upgrade;
 import it.unibo.shoot.controller.MouseInput;
+import it.unibo.shoot.controller.PauseController;
 import it.unibo.shoot.loader.LevelLoader;
 import it.unibo.shoot.loader.ResourceLoader;
 import it.unibo.shoot.util.Constants;
@@ -63,6 +64,7 @@ public class Game extends Canvas implements Runnable {
 
         new Window(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, Constants.TITLE, this);
         this.addMouseListener(new MouseInput(handler, camera, this));
+        this.addKeyListener(new PauseController(this));
     }
 
     /**
@@ -98,7 +100,6 @@ public class Game extends Canvas implements Runnable {
         final double ns = 1_000_000_000 / 60.0;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        //int frames = 0;
 
         while (isRunning) {
             long now = System.nanoTime();
@@ -111,11 +112,9 @@ public class Game extends Canvas implements Runnable {
             }
 
             renderer.render(getGameState(), ammo, currentUpgradeOptions);
-            //frames++;
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                //frames = 0;
             }
         }
         stop();

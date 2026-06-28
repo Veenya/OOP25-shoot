@@ -71,7 +71,7 @@ public class Handler {
         for (int i = 0; i < object.size(); i++) {
             GameObject tempObject = object.get(i);
             if (tempObject.getId() == ID.Player) {
-                return tempObject; // Trovato! Lo restituisce alla telecamera
+                return tempObject;
             }
         }
         return null;
