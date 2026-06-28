@@ -41,5 +41,7 @@ public class ResourceLoader {
         return crateImage; 
     }
     
-    public BufferedImage getLevelImage() { return levelImage; }
+    public BufferedImage getLevelImage() { 
+        return levelImage; 
+    }
 }
