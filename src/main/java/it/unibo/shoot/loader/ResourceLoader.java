@@ -33,7 +33,10 @@ public class ResourceLoader {
         return playerSS; 
     }
     
-    public SpriteSheet getEnemySS() { return enemySS; }
+    public SpriteSheet getEnemySS() { 
+        return enemySS; 
+    }
+    
     public BufferedImage getCrateImage() { return crateImage; }
     public BufferedImage getLevelImage() { return levelImage; }
 }
