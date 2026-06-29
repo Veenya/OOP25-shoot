@@ -24,34 +24,26 @@ public class PlayerController implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode(); // CORREZIONE 1: Salviamo il tasto premuto in una variabile
         pressedKeys.add(key);
-        if (e.getKeyCode() == KeyEvent.VK_R) {
-          if (game.getGameState() == STATE.GAME_OVER) {
-          game.restartGame(); 
-          }
-          }
 
-        if (key == KeyEvent.VK_X) {
+        //if (e.getKeyCode() == KeyEvent.VK_R) {
+          //if (game.getGameState() == STATE.GAME_OVER) {
+          //game.restartGame(); 
+          //}
+          //}
+
+        //if (key == KeyEvent.VK_X) {
             // Only exit if the game is over or in the main menu
-            if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.MENU) {
-                System.exit(0);
-            }   
-        } 
-
-        // PAUSE
-        if (key == KeyEvent.VK_ESCAPE) {
-            if (game.getGameState() == STATE.GAME) {
-                game.setGameState(STATE.PAUSE);
-            } else if (game.getGameState() == STATE.PAUSE) {
-                game.setGameState(STATE.GAME);
-            }
-        }
+          //  if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.MENU) {
+            //    System.exit(0);
+            //}   
+        //} 
 
 
 
         
     }
     public void update() {
-    if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.PAUSE) {
+    if (game.getGameState() == STATE.GAME_OVER) {
             return;
     }
     
