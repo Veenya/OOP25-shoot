@@ -22,23 +22,11 @@ public class PlayerController implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode(); 
-        pressedKeys.add(key);
 
-       
-    
-    }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        pressedKeys.remove(e.getKeyCode());
-    }
-    
-    @Override
-    public void keyTyped(KeyEvent e) {
-       
-    }
 
-    
+        
+    }
     public void update() {
         if (game.getGameState() == STATE.GAME_OVER) {
             return;

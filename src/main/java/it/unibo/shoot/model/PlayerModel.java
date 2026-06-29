@@ -119,34 +119,34 @@ public class PlayerModel {
     }
 
     public void takeDamage(int damage) {
-       
+        // 1. Se sei già a 0, il codice si ferma.
         if (this.health <= 0) {
             this.health = 0;
             this.isDead = true; 
             System.out.println("GAME OVER! Vita: 0");
-            return; 
+            return; // <--- FONDAMENTALE: ferma l'esecuzione se è già morto!
         }
 
-        
+        // Incorporate Dodge Mechanism before checking damage
         if (Math.random() < this.dodgeChance) {
             System.out.println("Schivato! Nessun danno subito.");
             return; 
         }
 
-        
+        // 2. Controllo del tempo per I-Frames
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastDamageTime < iFramesDuration) {
-            return;
+            return; // Ignora il colpo
         }
 
-       
+        // 3. Prendi danno
         this.health -= damage;
         this.lastDamageTime = currentTime; 
         this.damageHistory.add(damage);
-        
+        // 4. CONTROLLO DEL GAME OVER (IL BUG CHE HA FATTO FALLIRE IL TEST ERA QUI)
         if (this.health <= 0) {
             this.health = 0;
-            this.isDead = true; 
+            this.isDead = true; // <--- IL FLAG FONDAMENTALE CHE MANCAVA!
             System.out.println("GAME OVER! Vita: 0");
         } else {
             System.out.println("Danno subito! Vita attuale: " + this.health);
@@ -179,7 +179,14 @@ public class PlayerModel {
     public void setHealth(int health) {
         this.health = health ; 
     }
-    
+    // =========================================
+    // METODI FUNZIONALI (STREAM API & OPTIONAL)
+    // =========================================
+
+    /**
+     * Calcola la media matematica dei danni subiti dall'inizio della partita.
+     * Utilizza Stream API e OptionalDouble per gestire il caso in cui non si siano subiti danni.
+     */
     public double getAverageDamageTaken() {
         return damageHistory.stream()
                             .mapToInt(Integer::intValue)
@@ -187,7 +194,10 @@ public class PlayerModel {
                             .orElse(0.0);
     }
 
-    
+    /**
+     * Trova il singolo colpo più devastante incassato dal giocatore.
+     * Utilizza Lambda e pipeline di mapping.
+     */
     public int getMaxDamageTaken() {
         return damageHistory.stream()
                             .mapToInt(Integer::intValue)
