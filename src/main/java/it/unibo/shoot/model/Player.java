@@ -114,9 +114,9 @@ public class Player extends GameObject {
         }
     }
 
-    // ==========================================
-    // METODI DI DELEGA MVC (Accessor / Mutator)
-    // ==========================================
+  
+    // METODI DI DELEGA MVC
+    
 
     public void takeDamage(int amount){
         model.takeDamage(amount);
