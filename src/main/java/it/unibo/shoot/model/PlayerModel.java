@@ -4,32 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
+/**
+ * Modello logico del giocatore.
+ * * Gestisce lo stato matematico (posizione, velocità), le statistiche vitali
+ * e le regole di business legate al combattimento (calcolo danni, frame di invulnerabilità, schivata).
+ */
 public class PlayerModel {
+   
     private double x, y;
     private double speed;
     private int health;
     private int maxHealth;
     private boolean isDead = false;
     
+   
     private final List<Integer> damageHistory = new ArrayList<>();
-   
     
-   
     private double damageMultiplier = 1.0; 
-    private double dodgeChance = 0.0;      
-    private double pickupRange = 1.0;      
+    private double dodgeChance = 0.0;       
+    private double pickupRange = 1.0;       
 
     private float velX = 0, velY = 0;
     
-   
+    
     private int aniTick, aniIndex, aniSpeed = 10; 
     private boolean isMoving = false;
     private int row = 0; 
 
-    
     private final int width = 32;
     private final int height = 32;
-
 
     private long lastDamageTime = 0; 
     private final int iFramesDuration = 1000; 
@@ -42,19 +45,12 @@ public class PlayerModel {
         this.health = maxHealth;
     }
 
- 
-    public double getSpeed() { 
-        return speed; 
-    }
-    
-    public void setSpeed(double speed) { 
-        this.speed = speed; 
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
+    /**
+     * Ripristina la salute del giocatore.
+     * Garantisce che la vita non superi mai il limite massimo imposto da maxHealth.
+     *
+     * @param amount La quantità di punti vita da ripristinare.
+     */
     public void heal(int amount) {
         this.health += amount;
         if (this.health > this.maxHealth) {
@@ -62,36 +58,19 @@ public class PlayerModel {
         }
     }
 
-    public double getDamageMultiplier() {
-        return damageMultiplier;
-    }
-
-    public void setDamageMultiplier(double damageMultiplier) {
-        this.damageMultiplier = damageMultiplier;
-    }
-
-    public double getDodgeChance() {
-        return dodgeChance;
-    }
-
-    public void setDodgeChance(double dodgeChance) {
-        this.dodgeChance = dodgeChance;
-    }
-
-    public double getPickupRange() {
-        return pickupRange;
-    }
-
-    public void setPickupRange(double pickupRange) {
-        this.pickupRange = pickupRange;
-    }
-
-
+    /**
+     * Calcola il vettore di velocità e deduce la direzione dello sguardo (row) 
+     * per l'animazione in base all'input.
+     *
+     * @param dx Moltiplicatore di direzione sull'asse X (-1, 0, 1)
+     * @param dy Moltiplicatore di direzione sull'asse Y (-1, 0, 1)
+     */
     public void setVelocity(float dx, float dy) {
         this.velX = dx * (float)speed;
         this.velY = dy * (float)speed;
         this.isMoving = (dx != 0 || dy != 0);
 
+        
         if (dy > 0) row = 0;      
         else if (dy < 0) row = 1; 
         else if (dx < 0) row = 3; 
@@ -118,75 +97,79 @@ public class PlayerModel {
         }
     }
 
+    /**
+     * Tenta di applicare il danno al giocatore passando per tre filtri di difesa:
+     * 1. Verifica se il giocatore è già morto (evita danni negativi).
+     * 2. Tira un dado RNG per la probabilità di schivata (dodgeChance).
+     * 3. Verifica i frame di invulnerabilità (i-frames) legati al tempo reale.
+     * * Se il danno passa i filtri, aggiorna la cronologia e valuta la condizione di morte.
+     *
+     * @param damage L'ammontare di danno grezzo in ingresso.
+     */
     public void takeDamage(int damage) {
-        // 1. Se sei già a 0, il codice si ferma.
         if (this.health <= 0) {
             this.health = 0;
             this.isDead = true; 
-            System.out.println("GAME OVER! Vita: 0");
-            return; // <--- FONDAMENTALE: ferma l'esecuzione se è già morto!
-        }
-
-        // Incorporate Dodge Mechanism before checking damage
-        if (Math.random() < this.dodgeChance) {
-            System.out.println("Schivato! Nessun danno subito.");
             return; 
         }
 
-        // 2. Controllo del tempo per I-Frames
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastDamageTime < iFramesDuration) {
-            return; // Ignora il colpo
+        // Filtro Schivata
+        if (Math.random() < this.dodgeChance) {
+            
+            return; 
         }
 
-        // 3. Prendi danno
+        // Filtro Invulnerabilità Temporanea (I-Frames)
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDamageTime < iFramesDuration) {
+            return;
+        }
+
         this.health -= damage;
         this.lastDamageTime = currentTime; 
         this.damageHistory.add(damage);
-        // 4. CONTROLLO DEL GAME OVER (IL BUG CHE HA FATTO FALLIRE IL TEST ERA QUI)
+        
         if (this.health <= 0) {
             this.health = 0;
-            this.isDead = true; // <--- IL FLAG FONDAMENTALE CHE MANCAVA!
-            System.out.println("GAME OVER! Vita: 0");
-        } else {
-            System.out.println("Danno subito! Vita attuale: " + this.health);
+            this.isDead = true; 
         }
     }
 
+    /**
+     * Genera la hitbox spaziale del giocatore per il sistema di collisioni.
+     * * @return Il rettangolo di collisione.
+     */
+    public Rectangle getHitbox() {
+        return new Rectangle((int)x, (int)y, width, height);
+    }
 
+    
+    // Getter & Setter di base
    
+    
+    public double getSpeed() { return speed; }
+    public void setSpeed(double speed) { this.speed = speed; }
+    public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
+    public double getDamageMultiplier() { return damageMultiplier; }
+    public void setDamageMultiplier(double damageMultiplier) { this.damageMultiplier = damageMultiplier; }
+    public double getDodgeChance() { return dodgeChance; }
+    public void setDodgeChance(double dodgeChance) { this.dodgeChance = dodgeChance; }
+    public double getPickupRange() { return pickupRange; }
+    public void setPickupRange(double pickupRange) { this.pickupRange = pickupRange; }
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }
-    
     public int getRow() { return row; }
     public int getAniIndex() { return aniIndex; }
     public boolean isMoving() { return isMoving; }
-    
     public float getVelX() { return velX; }
     public float getVelY() { return velY; }
     public double getX() { return x; }
     public double getY() { return y; }
     public int getHealth() { return health; }
-     public int getMaxHealth() { return maxHealth;}
+    public int getMaxHealth() { return maxHealth;}
+    public boolean isDead() { return this.isDead; }
+    public void setHealth(int health) { this.health = health ; }
 
-    public Rectangle getHitbox() {
-        return new Rectangle((int)x, (int)y, width, height);
-    }
-    public boolean isDead() {
-        return this.isDead;
-    }
-
-    public void setHealth(int health) {
-        this.health = health ; 
-    }
-    // =========================================
-    // METODI FUNZIONALI (STREAM API & OPTIONAL)
-    // =========================================
-
-    /**
-     * Calcola la media matematica dei danni subiti dall'inizio della partita.
-     * Utilizza Stream API e OptionalDouble per gestire il caso in cui non si siano subiti danni.
-     */
     public double getAverageDamageTaken() {
         return damageHistory.stream()
                             .mapToInt(Integer::intValue)
@@ -194,10 +177,6 @@ public class PlayerModel {
                             .orElse(0.0);
     }
 
-    /**
-     * Trova il singolo colpo più devastante incassato dal giocatore.
-     * Utilizza Lambda e pipeline di mapping.
-     */
     public int getMaxDamageTaken() {
         return damageHistory.stream()
                             .mapToInt(Integer::intValue)
