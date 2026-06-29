@@ -149,9 +149,9 @@ public class PlayerModel {
         return new Rectangle((int)x, (int)y, width, height);
     }
 
-    // ==========================================
+   
     // METODI DI DELEGA E ACCESSO
-    // ==========================================
+
    
     public double getSpeed() { return speed; }
     public void setSpeed(double speed) { this.speed = speed; }
