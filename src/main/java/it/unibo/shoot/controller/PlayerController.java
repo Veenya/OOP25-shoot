@@ -7,18 +7,18 @@ import java.util.Set;
 import it.unibo.shoot.model.*;
 
 /**
- * Gestisce l'input da tastiera per il movimento del giocatore.
- * * Intercetta gli eventi AWT e mantiene lo stato dei tasti attivi per
- * garantire un movimento fluido disaccoppiato dal delay di ripetizione 
- * del sistema operativo, aggiornando il vettore di velocità del modello
- * a ogni ciclo del game loop.
+ * Gestisce l'input hardware da tastiera per il controllo direzionale del giocatore.
+ * Agisce come Controller nel pattern MVC: intercetta gli eventi nativi AWT e ne delega 
+ * la traduzione vettoriale al Modello.
+ * Utilizza una strategia a Polling Bufferizzato tramite HashSet per eludere l'input lag 
+ * e il delay di ripetizione del sistema operativo, garantendo fluidità omnidirezionale.
  */
 public class PlayerController implements KeyListener {
 
     private PlayerModel model;
     private Game game; 
     
-    // Contiene i keyCode dei tasti attualmente premuti
+    /** Buffer di stato con tempo di accesso e inserimento garantito in O(1). */
     private Set<Integer> pressedKeys = new HashSet<>();
 
     public PlayerController(PlayerModel model, Game game) {
@@ -28,8 +28,7 @@ public class PlayerController implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode(); 
-        pressedKeys.add(key);
+        pressedKeys.add(e.getKeyCode());
     }
 
     @Override
@@ -39,13 +38,15 @@ public class PlayerController implements KeyListener {
     
     @Override
     public void keyTyped(KeyEvent e) {
-        // Non utilizzato per il movimento
+        // Bypassato intenzionalmente: l'hardware polling richiede l'uso esclusivo dei KeyCode grezzi.
     }
 
     /**
-     * Ricalcola e applica la velocità al modello del giocatore in base 
-     * allo stato attuale dei tasti premuti.
-     * Deve essere invocato ad ogni iterazione del game loop.
+     * Traduce i tasti attualmente attivi nel buffer in un vettore di direzione 
+     * risultante (dx, dy) e lo inietta nel PlayerModel.
+     * * VINCOLO DI STATO: L'esecuzione è subordinata allo stato globale del motore. 
+     * Se la FSM globale si trova in STATE.GAME_OVER, il polling vettoriale viene abortito
+     * per prevenire manipolazioni fisiche (movimenti zombie) ad entità "morte".
      */
     public void update() {
         if (game.getGameState() == STATE.GAME_OVER) {
