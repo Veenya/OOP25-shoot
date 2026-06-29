@@ -15,6 +15,13 @@ public class Spawner {
     private final BufferedImage map;
     private final LevelManager levelManager;
 
+    /**
+     * 
+     * @param handler           l' {@link Handler} che gestisce gli oggetti
+     * @param ss                lo {@link SpriteSheet} con gli sprite del nemico
+     * @param map               la {@link BufferedImage} della mappa
+     * @param levelManager      il {@link LevelManager} associato ai nemici generati
+     */
     public Spawner(Handler handler, SpriteSheet ss, BufferedImage map, LevelManager levelManager){
         this.handler = handler;
         this.ss = ss;

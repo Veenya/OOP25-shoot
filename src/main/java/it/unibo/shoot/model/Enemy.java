@@ -31,6 +31,17 @@ public class Enemy extends GameObject{
     protected int frame = 0;
     protected int frameDelay = 0;
 
+
+    /**
+     * 
+     * @param x             coordinata X del mondo di gioco
+     * @param y             coordinata Y del mondo di gioco
+     * @param id            identificatore del tipo di oggetto
+     * @param ss            lo {@link SpriteSheet} con gli sprite del nemico
+     * @param handler       l' {@link Handler} che gestisce gli oggetti
+     * @param speed         la velocità di movimento del nemmico
+     * @param levelManager  il {@link LevelManager} che assegna XP al giocatore
+     */
     public Enemy (int x, int y, ID id,SpriteSheet ss, Handler handler, float speed, LevelManager levelManager){
         super(x, y, id, ss);
         this.handler = handler;
@@ -59,7 +70,7 @@ public class Enemy extends GameObject{
             .anyMatch(obj -> obj.getId() == ID.Block && getBoundsBig().intersects(obj.getBounds()));    //controlla se il nemico tocca un muro
 
         handler.object.stream()
-            .filter(obj -> obj.getId() == ID.Bullet && getBounds().intersects(obj.getBounds()))         //controlla se è colpito da un proiettile
+            .filter(obj -> obj.getId() == ID.Bullet && getBounds().intersects(obj.getBounds()))         //controlla se viene colpito da un proiettile
             .findFirst().ifPresent(obj -> {
                 hp -= ((Bullet) obj).getDamage();
                 handler.removeObject(obj);
@@ -69,7 +80,7 @@ public class Enemy extends GameObject{
             resolveCollision(oldX, oldY);
         }
 
-        clampToWorld();                                                                                 //controlla se il nemico è uscito dai bordi della mappa
+        clampToWorld();                                                                                 //controlla se il nemico esce dai bordi della mappa
         onDeath();                                                                                      //si attiva quando il nemico muore
         moveToPlayer(player);                                                                           //si avvicina al giocatore
         updateAnimation();                                                                              //scorre i frame per le animazioni
@@ -92,7 +103,7 @@ public class Enemy extends GameObject{
                 if(levelManager != null){
                     levelManager.addXP(xpValue);
                 }
-                bossDeath();                                                    //azione speciale che si attiva solo se il nemico che muore è un Boss
+                bossDeath();                                                    //azione speciale che si attiva solo se un Boss muore
                 handler.removeObject(this);                                     //rimuove il nemico eliminato
             }
         }
@@ -100,11 +111,11 @@ public class Enemy extends GameObject{
         private void resolveCollision(int oldX, int oldY) {
                 x = oldX;                                                       //salva le vecchie coordinate
                 y = oldY;
-                x += velX;                                                      //testa se è uscito dai bordi sull'asse X
+                x += velX;                                                      //testa se il nemico esce dai bordi sull'asse X
                 if (collidesWithBlock()) {
                     x = oldX;
                 }
-                y += velY;                                                      //testa se è uscito dai bordi sull'asse Y
+                y += velY;                                                      //testa se esce dai bordi sull'asse Y
                 if (collidesWithBlock()) {
                     y = oldY;
                 }

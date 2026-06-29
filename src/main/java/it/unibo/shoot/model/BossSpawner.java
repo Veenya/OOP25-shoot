@@ -9,7 +9,7 @@ public class BossSpawner {
 
     final private Handler handler;
     final private SpriteSheet ss;
-    final private BufferedImage crate_image;
+    final private BufferedImage crateImage;
     final private LevelManager levelManager;
     private int timer = 0;
     private boolean bossAlive = false;
@@ -18,10 +18,17 @@ public class BossSpawner {
     private static final int BOSS_SPAWN_Y = 33 * Constants.TILE_SIZE;
     private static final int BOSS_TIMER = 1200;
 
-    public BossSpawner(Handler handler, SpriteSheet ss, BufferedImage crate_image, LevelManager levelManager){
+    /**
+     * 
+     * @param handler       l' {@link Handler} che gestisce tutti gli oggetti di gioco
+     * @param ss            lo {@link SpriteSheet} usato per la "skin" del boss
+     * @param crateImage    la {@link BufferedImage} della cassa usata quamdo il boss muore
+     * @param levelManager  il {@link LevelManager} associato al boss
+     */
+    public BossSpawner(Handler handler, SpriteSheet ss, BufferedImage crateImage, LevelManager levelManager){
         this.handler = handler;
         this.ss = ss;
-        this.crate_image = crate_image;
+        this.crateImage = crateImage;
         this.levelManager = levelManager;
     }
 
@@ -38,7 +45,7 @@ public class BossSpawner {
     }
 
     public void spawnBoss() {
-        handler.addObject(new Boss(BOSS_SPAWN_X, BOSS_SPAWN_Y, ID.Boss, ss, handler, levelManager, crate_image, this));
+        handler.addObject(new Boss(BOSS_SPAWN_X, BOSS_SPAWN_Y, ID.Boss, ss, handler, levelManager, crateImage, this));
         bossAlive = true;
     }
 
