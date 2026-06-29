@@ -22,21 +22,7 @@ public class PlayerController implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode(); // CORREZIONE 1: Salviamo il tasto premuto in una variabile
-        pressedKeys.add(key);
-
-        //if (e.getKeyCode() == KeyEvent.VK_R) {
-          //if (game.getGameState() == STATE.GAME_OVER) {
-          //game.restartGame(); 
-          //}
-          //}
-
-        //if (key == KeyEvent.VK_X) {
-            // Only exit if the game is over or in the main menu
-          //  if (game.getGameState() == STATE.GAME_OVER || game.getGameState() == STATE.MENU) {
-            //    System.exit(0);
-            //}   
-        //} 
+        int key = e.getKeyCode(); 
 
 
 
