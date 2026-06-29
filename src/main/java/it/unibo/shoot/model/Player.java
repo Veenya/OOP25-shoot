@@ -11,10 +11,10 @@ import it.unibo.shoot.GameObjects.GameObject;
 import it.unibo.shoot.audio.Sound;
 
 /**
- * Entità principale del giocatore.
- * Fungere da aggregatore (Facade) per il pattern MVC interno (Model, View, Controller)
- * e mappa l'entità nel sistema globale dei GameObject.
- * tra questa classe (ereditata da GameObject) e PlayerModel.
+ * Entità principale del giocatore e nodo di interfaccia con il Game Engine.
+ * Funge da aggregatore (Facade Pattern) per il sistema MVC interno, incapsulando 
+ * Model, View e Controller, e proiettandoli come un singolo GameObject coerente 
+ * all'interno dell'Handler globale.
  */
 public class Player extends GameObject {
 
@@ -25,34 +25,34 @@ public class Player extends GameObject {
     Game game;
 
     /**
-     * Costruisce il giocatore inizializzando il suo ecosistema MVC interno.
+     * Costruisce il giocatore e innesca le dipendenze del suo ecosistema MVC interno.
      * * @param x Coordinata logica iniziale X.
      * @param y Coordinata logica iniziale Y.
-     * @param id Identificatore per il collision system.
-     * @param canvas Contesto di rendering per la registrazione degli input.
-     * @param ss Asset grafico.
-     * @param handler Riferimento al gestore globale per calcolare le collisioni.
-     * @param game Riferimento al motore di gioco per transizioni di stato.
+     * @param id Identificatore per il sistema di collisione.
+     * @param canvas Contesto di rendering per la registrazione del listener hardware.
+     * @param ss Asset grafico (SpriteSheet) fornito dal loader.
+     * @param handler Riferimento al gestore globale per interrogare le entità vicine.
+     * @param game Riferimento al motore per innescare transizioni di stato globali.
      */
     public Player(int x, int y, ID id, Canvas canvas, SpriteSheet ss, Handler handler, Game game) {
         super(x, y, id, ss);
         this.handler = handler;
         
-        // Inizializzazione hardcoded delle statistiche base
+        // Inizializzazione isolata delle componenti MVC
         this.model = new PlayerModel(x, y, 5.0, 100); 
         this.view = new PlayerView(model, ss); 
         this.controller = new PlayerController(model, game);
         this.game = game;
 
-        
-        // interfacciarsi direttamente con componenti grafiche AWT.
+        // Registrazione hardware diretta sul canvas
         canvas.addKeyListener(controller);
     }
 
     /**
-     * Aggiorna lo stato logico, processa gli input pendenti e sincronizza 
-     * le coordinate fisiche (x, y, velX, velY) con quelle del PlayerModel.
-     * Gestisce inoltre le condizioni di sconfitta.
+     * Sincronizza lo stato logico e fisico ad ogni iterazione del Game Loop (60 TPS).
+     * VINCOLO DI STATO: Agisce come barriera FSM. Se il PlayerModel notifica la morte 
+     * dell'entità, il metodo forza una transizione globale in STATE.GAME_OVER e 
+     * interrompe l'esecuzione impedendo ulteriori calcoli vettoriali.
      */
     @Override
     public void tick() {
@@ -66,7 +66,6 @@ public class Player extends GameObject {
         model.updatePosition();
         model.updateAnimation(); 
         
-        
         this.x = (int) model.getX();
         this.y = (int) model.getY();
         this.velX = model.getVelX();
@@ -76,18 +75,20 @@ public class Player extends GameObject {
     }
 
     /**
-     * Risolve le collisioni AABB (Axis-Aligned Bounding Box) con le altre entità attive.
-     * Gestisce la compenetrazione solida (Block), il recupero munizioni (Crate) 
-     * e i danni ricevuti (Enemy).
+     * Risolve le intersezioni fisiche tramite AABB (Axis-Aligned Bounding Box).
+     * COMPORTAMENTI SPECIFICI:
+     * - Ostacoli Solidi (Block): Applica un rollback vettoriale per negare la compenetrazione.
+     * - Risorse (Crate): Applica la rimozione sicura (List Shift Compensation) decrementando
+     * l'indice di iterazione (i--) per prevenire il salto di entità adiacenti.
+     * - Ostili (Enemy): Delega il calcolo dei danni al Modello, affidandosi al suo cooldown.
      */
     public void collision() {
-        // Valutare il passaggio a un Iterator o gestire la rimozione a fine loop (Garbage List).
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
             
             if (tempObject.getId() == ID.Block) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    // Risoluzione grossolana della collisione (annulla l'ultimo movimento)
+                    // Rollback del vettore per impedire l'attraversamento
                     this.x -= velX;
                     this.y -= velY;
 
@@ -101,22 +102,21 @@ public class Player extends GameObject {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     game.ammo += 50;
                     handler.removeObject(tempObject);
-                    i--; 
+                    i--; // Compensazione dinamica per lo shift della lista
                 }
             }
 
             if (tempObject.getId() == ID.Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     model.takeDamage(1); 
-                    
                 }
             }
         }
     }
 
-    
-    // Metodi di Delega (Boilerplate) - Non documentati 
-   
+    // ==========================================
+    // METODI DI DELEGA MVC (Accessor / Mutator)
+    // ==========================================
 
     public void takeDamage(int amount){
         model.takeDamage(amount);
@@ -188,4 +188,3 @@ public class Player extends GameObject {
         return this.game; 
     }
 }
-
