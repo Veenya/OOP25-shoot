@@ -14,7 +14,7 @@ public class Enemy3 extends Enemy{
      * @param levelManager  il {@link LevelManager} che assegna XP al giocatore
      */
     public Enemy3(int x, int y, ID id, SpriteSheet ss, Handler handler, LevelManager levelManager) {
-        super(x, y, id, ss, handler, 1.5f, levelManager);
+        super(x, y, id, ss, handler, 2.0f, levelManager);
         this.COL_OFFSET = 6;
         this.hp = 250;
         this.damage = 30;

@@ -6,7 +6,9 @@ import java.util.Random;
 
 import it.unibo.shoot.GameObjects.Crate;
 import it.unibo.shoot.loader.SpriteSheet;
-
+/**
+ * Il boss, ha statistiche più elevate ed è facilmente visibile nella mappa, lascia un {@link Crate} alla morte
+ */
 public class Boss extends Enemy {
 
     private static final int BOSSWH = 64;

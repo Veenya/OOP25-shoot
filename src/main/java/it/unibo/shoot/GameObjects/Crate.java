@@ -1,17 +1,18 @@
 package it.unibo.shoot.GameObjects;
 
-import it.unibo.shoot.model.ID;
-import it.unibo.shoot.util.Constants;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
+import it.unibo.shoot.model.ID;
+import it.unibo.shoot.util.Constants;
 
 
  //Rappresenta un oggetto di gioco di tipo Crate.
 public class Crate extends GameObject {
     
     /** L'immagine texture utilizzata per il rendering grafico del crate. */
-    private BufferedImage crate_image;
+    private final BufferedImage crate_image;
 
     /**
      * Costruttore per la creazione di una nuova istanza di Crate.

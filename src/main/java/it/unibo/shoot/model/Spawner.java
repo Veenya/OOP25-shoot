@@ -5,6 +5,9 @@ import java.util.Random;
 import it.unibo.shoot.loader.SpriteSheet;
 import it.unibo.shoot.util.Constants;
 
+/**
+ * Genera periodicamente un nemico tra i 3 casuali in una posizione dove non è presente un muro
+ */
 public class Spawner {
 
     private final Handler handler;
@@ -29,6 +32,9 @@ public class Spawner {
         this.levelManager = levelManager;
     }
 
+    /**
+     * Aggiorna il timer e quando genera un nemico si resetta
+     */
     public void tick() {
         timer++;
         if(timer >= SPAWN_TIMER){                                      //quando il timer raggiunge il tempo si azzera e fa spawnare un nemico
@@ -37,6 +43,10 @@ public class Spawner {
         }
     }
 
+    /**
+     * Cerca un punto per generare il nemico
+     * @return array con le coordinate [x, y] dove viene generato il nemico, null altrimenti
+     */
     private int[] findSpawn() {
         int x, y;
         int maxAttempts = 30;
@@ -48,6 +58,9 @@ public class Spawner {
         return isWall(x, y) ? null : new int[]{x, y};
     }
 
+    /**
+     * Genera uno tra {@link Enemy1}, {@link Enemy2} e {@link Enemy3} casualmente nella posizione di {@link #findSpawn()}.
+     */
     private void spawnEnemy() {
         int[] pos = findSpawn();
         if (pos == null){
@@ -64,6 +77,12 @@ public class Spawner {
         handler.addObject(enemies[r.nextInt(3)]);
     }
 
+    /**
+     * Controllo se il tile è sopra o vicino a un muro, in modo da non avere una generazione sopra al muro
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean isWall(int x, int y){                                                       //serve per lo spawn dei nemici, controlla se il tile ? rosso = muro
         int mapX = x / Constants.TILE_SIZE;
         int mapY = y / Constants.TILE_SIZE;

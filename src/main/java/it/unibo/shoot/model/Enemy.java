@@ -7,7 +7,10 @@ import it.unibo.shoot.GameObjects.Bullet;
 import it.unibo.shoot.GameObjects.GameObject;
 import it.unibo.shoot.loader.SpriteSheet;
 import it.unibo.shoot.util.Constants;
-
+/**
+ * Classe dei nemici del gioco.
+ * Gestisce il movimento verso il player, le collisioni con i muri e i proiettili sparati dal player, i frame di animazione e la morte
+ */
 public class Enemy extends GameObject{
     
     private static final int ENEMYWH = 32;
@@ -50,6 +53,9 @@ public class Enemy extends GameObject{
         this.levelManager = levelManager;
     }
 
+    /**
+     * Aggiorna lo stato del nemico ad ogni frame
+     */
     @Override
     public void tick()  {
 

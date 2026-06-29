@@ -14,7 +14,7 @@ public class Enemy2 extends Enemy{
      * @param levelManager  il {@link LevelManager} che assegna XP al giocatore
      */
     public Enemy2(int x, int y, ID id, SpriteSheet ss, Handler handler, LevelManager levelManager) {
-        super(x, y, id, ss, handler, 1.5f, levelManager);
+        super(x, y, id, ss, handler, 2.5f, levelManager);
         this.COL_OFFSET = 3;                                                //offset necessario per avere i giusti sprite nelle animazioni
         this.hp = 200;
         this.damage = 25;
